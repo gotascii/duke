@@ -1,0 +1,7 @@
+#! /bin/sh
+
+PORT=$1
+REPO_DIR=$2
+nohup cijoe -p $PORT $REPO_DIR 1>log/$REPO_DIR.$PORT.log 2>&1 &
+echo $! > tmp/pids/$REPO_DIR.$PORT.pid
+# echo $! > ./tmp/pids/$REPO_DIR.$PORT.pid
