@@ -1,6 +1,6 @@
 = duke
 
-Duke led the GIJoes into battle (http://en.wikipedia.org/wiki/Duke_(G.I._Joe)). duke.rb leads your CIJoes into battle.
+Duke led the GIJoes into battle http://en.wikipedia.org/wiki/Duke_(G.I._Joe). duke.rb leads your CIJoes into battle.
 
 == Note on Patches/Pull Requests
  
