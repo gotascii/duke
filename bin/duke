@@ -12,14 +12,8 @@ when '-h', '--help'
 Usage: duke COMMAND [ARGS]
 
 Commands:
-install URL                   Install cijoe_passenger into current directory and configure for URL
-add NAME|REPO_URL [REPO_URL]  Adds app to current cijoe_passenger directory using repo at REPO_URL
-scan                          Scans apps for updates and sends necessary build requests to cijoe
-runner NAME COMMAND           Sets the runner COMMAND for cijoe_passenger instance NAME
+start REPO_NAME PORT  start cijoe for REPO_NAME on PORT
   EOT
-when 'runner'
-  add = CIJoePassenger::Add.new([ARGV.shift, 'repo'])
-  add.configure_cijoe_runner(ARGV.shift)
 else
-  CIJoePassenger.const_get(command.capitalize.to_sym).start(ARGV)
+  Duke::Cli.new.send(command.to_sym, *ARGV)
 end

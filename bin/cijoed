@@ -1,7 +1,13 @@
 #! /bin/sh
 
-PORT=$1
-REPO_DIR=$2
-nohup cijoe -p $PORT $REPO_DIR 1>log/$REPO_DIR.$PORT.log 2>&1 &
-echo $! > tmp/pids/$REPO_DIR.$PORT.pid
+REPO_DIR=$1
+PORT=$2
+LOG_FILE=$3
+PID_FILE=$4
+
+nohup cijoe -p $PORT $REPO_DIR 1>$LOG_FILE 2>&1 &
+echo $! > $PID_FILE
+
+# nohup cijoe -p $PORT $REPO_DIR 1>log/$IDENTIFIER.log 2>&1 &
+# echo $! > tmp/pids/$REPO_DIR.$PORT.pid
 # echo $! > ./tmp/pids/$REPO_DIR.$PORT.pid
