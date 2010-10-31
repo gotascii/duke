@@ -10,9 +10,10 @@ Gem::Specification.new do |s|
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Justin Marney"]
   s.date = %q{2010-10-31}
+  s.default_executable = %q{duke}
   s.description = %q{Allows you to start, stop, ping, and list all of your CIJoes.}
   s.email = %q{gotascii@gmail.com}
-  s.executables = ["cijoed", "duke"]
+  s.executables = ["duke"]
   s.extra_rdoc_files = [
     "LICENSE",
      "README.rdoc"
@@ -27,7 +28,6 @@ Gem::Specification.new do |s|
      "README.rdoc",
      "Rakefile",
      "VERSION",
-     "bin/cijoed",
      "bin/duke",
      "duke.gemspec",
      "lib/duke.rb",

@@ -13,6 +13,7 @@ Usage: duke COMMAND [ARGS]
 
 Commands:
 start REPO_NAME PORT  start cijoe for REPO_NAME on PORT
+stop REPO_NAME PORT   stop cijoe for REPO_NAME on PORT
   EOT
 else
   Duke::Cli.new.send(command.to_sym, *ARGV)

@@ -19,4 +19,9 @@ describe "An instance of Cli" do
     Duke::Controller.stub(:new).and_return(@cont)
     @cli.start(@repo_name, @port)
   end
+
+  it "execs the cijoe daemon" do
+    @cli.should_receive(:exec).with("nohup cijoe -p 4567 repo 1>log_file! 2>&1 & echo $! > pid_file!")
+    @cli.cijoed(@repo_name, @port, 'log_file!', 'pid_file!')
+  end
 end

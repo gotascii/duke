@@ -19,8 +19,7 @@ module Duke
     def controller
       @controller ||= DaemonController.new({
         :identifier    => identifier,
-        :start_command => "cijoed #{repo_name} #{port} #{log_file} #{pid_file}",
-        # :start_command => "cijoed #{identifier}",
+        :start_command => "duke cijoed #{repo_name} #{port} #{log_file} #{pid_file}",
         :ping_command  => ping_command,
         :pid_file      => pid_file,
         :log_file      => log_file,

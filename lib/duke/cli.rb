@@ -9,5 +9,10 @@ module Duke
     def stop(repo_name, port)
       Controller.new(repo_name, port).stop
     end
+
+    desc "cijoed", "daemonized cijoe wrapper"
+    def cijoed(repo_name, port, log_file, pid_file)
+      exec("nohup cijoe -p #{port} #{repo_name} 1>#{log_file} 2>&1 & echo $! > #{pid_file}")
+    end
   end
 end

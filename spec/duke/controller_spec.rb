@@ -46,7 +46,7 @@ describe "An instance of Controller" do
     @controller.stub(:log_file).and_return("log_file!")
     args = {
       :identifier    => "identifier!",
-      :start_command => "cijoed identifier!",
+      :start_command => "duke cijoed repo 4567 log_file! pid_file!",
       :ping_command  => "ping_command!",
       :pid_file      => "pid_file!",
       :log_file      => "log_file!",
