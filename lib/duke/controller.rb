@@ -2,11 +2,12 @@ module Duke
   class Controller
     extend Forwardable
     def_delegators :controller, :start, :stop, :running?
-    attr_reader :dir, :repo_dir, :port, :timeout
+    attr_reader :dir, :repo_dir, :timeout
+    attr_accessor :port
 
     def initialize(repo_dir, port)
       @dir = Dir.pwd
-      @repo_name = repo_dir
+      @repo_dir = repo_dir
       @port = port
       @timeout = 7
     end

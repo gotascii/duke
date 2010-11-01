@@ -16,9 +16,9 @@ module Duke
     desc "add REPO_URL", "adds REPO_URL to current duke directory"
     def add(repo_url)
       p = Project.create(repo_url)
-      puts "\n\n*** #{p.name} has been cloned and configured!"
+      puts "\n\n*** #{p.repo_dir} has been cloned and configured!"
       puts "*** Next steps probably include:"
-      puts "*** set up #{p.name}/config/database.yml"
+      puts "*** set up #{p.repo_dir}/config/database.yml"
       puts "*** create the project gemset"
       puts "*** run bundle install"
       puts "*** start up cijoe!"
@@ -37,7 +37,7 @@ module Duke
     desc "list", "list cijoe server statues"
     def list
       Project.all.each do |p|
-        puts "#{p.name}, #{p.running? ? "running" : "stopped"}"
+        puts "#{p.repo_dir}, #{p.running? ? "running on port #{p.port}" : "stopped"}"
       end
     end
 

@@ -4,7 +4,7 @@ module Duke
     extend Forwardable
     def_delegators :controller, :stop, :running?
 
-    attr_reader :repo_dir, :repo_url
+    attr_reader :repo_dir, :repo_url, :controller
 
     def self.repo_dirs
       Dir['*'].select do |repo_dir|

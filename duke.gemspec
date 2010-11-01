@@ -35,6 +35,7 @@ Gem::Specification.new do |s|
      "lib/duke/cli.rb",
      "lib/duke/controller.rb",
      "lib/duke/project.rb",
+     "lib/ext/string.rb",
      "spec/duke/cli_spec.rb",
      "spec/duke/controller_spec.rb",
      "spec/duke/project_spec.rb",
