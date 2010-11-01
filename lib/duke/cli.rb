@@ -1,15 +1,19 @@
 module Duke
   class Cli < Thor
-    desc "install [DIR]", "sets up DIR or current directory to run multiple cijoes"
+    include Thor::Actions
+
+    source_root File.join(File.dirname(__FILE__), '..', '..')
+
+    desc "install [DIR]", "install duke into DIR or current directory"
     def install(dir=nil)
       dir ||= "."
-      [dir, "#{dir}/tmp", "#{tmp_dir}/pids", "#{dir}/log"].each do |dir_name|
+      [dir, "#{dir}/tmp", "#{dir}/tmp/pids", "#{dir}/log"].each do |dir_name|
         Dir.mkdir(dir_name) unless Dir.exists?(dir_name)
       end
       directory 'templates', dir
     end
 
-    desc "add REPO_URL", "adds project at REPO_URL"
+    desc "add REPO_URL", "adds REPO_URL to current duke directory"
     def add(repo_url)
       p = Project.create(repo_url)
       puts "\n\n*** #{p.name} has been cloned and configured!"
@@ -20,17 +24,17 @@ module Duke
       puts "*** start up cijoe!"
     end
 
-    desc "start REPO_NAME PORT", "start cijoe for REPO_NAME on PORT"
-    def start(repo_name, port)
-      Project.new(repo_name).start(port)
+    desc "start REPO_DIR PORT", "start cijoe for REPO_DIR on PORT"
+    def start(repo_dir, port)
+      Project.new(repo_dir).start(port)
     end
 
-    desc "stop REPO_NAME", "stop cijoe for REPO_NAME running on port PORT"
-    def stop(repo_name)
-      Project.new(repo_name).stop
+    desc "stop REPO_DIR", "stop cijoe for REPO_DIR"
+    def stop(repo_dir)
+      Project.new(repo_dir).stop
     end
 
-    desc "list", "list added projects and server status"
+    desc "list", "list cijoe server statues"
     def list
       Project.all.each do |p|
         puts "#{p.name}, #{p.running? ? "running" : "stopped"}"
@@ -38,8 +42,8 @@ module Duke
     end
 
     desc "cijoed", "daemonized cijoe wrapper"
-    def cijoed(repo_name, port, log_file, pid_file)
-      exec("nohup cijoe -p #{port} #{repo_name} 1>#{log_file} 2>&1 & echo $! > #{pid_file}")
+    def cijoed(repo_dir, port, log_file, pid_file)
+      exec("nohup cijoe -p #{port} #{repo_dir} 1>#{log_file} 2>&1 & echo $! > #{pid_file}")
     end
   end
 end

@@ -2,17 +2,17 @@ module Duke
   class Controller
     extend Forwardable
     def_delegators :controller, :start, :stop, :running?
-    attr_reader :dir, :repo_name, :port, :timeout
+    attr_reader :dir, :repo_dir, :port, :timeout
 
-    def initialize(repo_name, port)
+    def initialize(repo_dir, port)
       @dir = Dir.pwd
-      @repo_name = repo_name
+      @repo_name = repo_dir
       @port = port
       @timeout = 7
     end
 
     def identifier
-      "#{repo_name}.#{port}"
+      "#{repo_dir}.#{port}"
     end
 
     def pid_file
@@ -30,7 +30,7 @@ module Duke
     def controller
       @controller ||= DaemonController.new({
         :identifier    => identifier,
-        :start_command => "duke cijoed #{repo_name} #{port} #{log_file} #{pid_file}",
+        :start_command => "duke cijoed #{repo_dir} #{port} #{log_file} #{pid_file}",
         :ping_command  => ping_command,
         :pid_file      => pid_file,
         :log_file      => log_file,

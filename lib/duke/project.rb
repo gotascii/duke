@@ -1,33 +1,37 @@
 module Duke
-  class Project
+  class Project < Thor::Group
     include Thor::Actions
     extend Forwardable
     def_delegators :controller, :stop, :running?
 
-    attr_reader :name
+    attr_reader :repo_dir, :repo_url
 
-    def self.dirs
-      Dir['*'].select do |name|
-        new(name).repo?
+    def self.repo_dirs
+      Dir['*'].select do |repo_dir|
+        new(repo_dir).repo_dir?
       end
     end
 
     def self.all
-      dirs.collect{|name| new(name) }
+      repo_dirs.collect{|repo_dir| new(repo_dir) }
     end
 
     def self.create(repo_url)
-      name = repo_url.slice(/\/(.*).git$/, 1)
-      p = new(name)
-      p.clone(repo_url)
+      p = new(repo_url)
+      p.clone
       p.set_runner ::Duke::Config.runner
       p.set_campfire ::Duke::Config.campfire
       p
     end
 
-    def initialize(name)
-      @name = name
-      @controller = Controller.new(name, port)
+    def initialize(repo_id)
+      args = []
+      options = {}
+      config = {}
+      super
+      @repo_url = repo_id if repo_id.repo_url?
+      @repo_dir = repo_id.repo_dir
+      @controller = Controller.new(@repo_dir, port)
     end
 
     def start(port)
@@ -37,24 +41,24 @@ module Duke
 
     def port
       Dir["tmp/pids/*.pid"].collect do |pid_file|
-        $1 if pid_file =~ /#{name}\.(\d+)/
+        $1 if pid_file =~ /#{repo_dir}\.(\d+)/
       end.compact.first
     end
 
-    def git_path
-      File.join(name, '.git')
+    def git_dir
+      File.join(repo_dir, '.git')
     end
 
-    def repo?
-      File.exist?(git_path)
+    def repo_dir?
+      File.exist?(git_dir)
     end
 
-    def clone(url)
-      run "git clone #{url} #{name}"
+    def clone
+      run "git clone #{repo_url}"
     end
 
     def add_config_to_repo(key, value)
-      inside(name) do
+      inside(repo_dir) do
         run "git config --add \"#{key}\" \"#{value}\""
       end
     end
