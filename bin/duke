@@ -12,8 +12,11 @@ when '-h', '--help'
 Usage: duke COMMAND [ARGS]
 
 Commands:
+install [DIR]         sets up DIR or current directory to run multiple cijoes
+add REPO_URL          adds project at REPO_URL
 start REPO_NAME PORT  start cijoe for REPO_NAME on PORT
-stop REPO_NAME PORT   stop cijoe for REPO_NAME on PORT
+stop REPO_NAME        stop cijoe for REPO_NAME running on port PORT
+list                  list added projects and server status
   EOT
 else
   Duke::Cli.new.send(command.to_sym, *ARGV)

@@ -38,7 +38,10 @@ Gem::Specification.new do |s|
      "spec/duke/cli_spec.rb",
      "spec/duke/controller_spec.rb",
      "spec/duke/project_spec.rb",
-     "spec/spec_helper.rb"
+     "spec/spec_helper.rb",
+     "templates/config.ru",
+     "templates/public/show.html",
+     "templates/views/show.erb"
   ]
   s.homepage = %q{http://github.com/gotascii/duke}
   s.rdoc_options = ["--charset=UTF-8"]
