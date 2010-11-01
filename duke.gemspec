@@ -31,10 +31,13 @@ Gem::Specification.new do |s|
      "bin/duke",
      "duke.gemspec",
      "lib/duke.rb",
+     "lib/duke/app.rb",
      "lib/duke/cli.rb",
      "lib/duke/controller.rb",
+     "lib/duke/project.rb",
      "spec/duke/cli_spec.rb",
      "spec/duke/controller_spec.rb",
+     "spec/duke/project_spec.rb",
      "spec/spec_helper.rb"
   ]
   s.homepage = %q{http://github.com/gotascii/duke}

@@ -1,6 +1,8 @@
 module Duke
   class Project
     include Thor::Actions
+    extend Forwardable
+    def_delegators :controller, :stop, :running?
 
     attr_reader :name
 
@@ -25,6 +27,18 @@ module Duke
 
     def initialize(name)
       @name = name
+      @controller = Controller.new(name, port)
+    end
+
+    def start(port)
+      @controller.port = port
+      @controller.start
+    end
+
+    def port
+      Dir["tmp/pids/*.pid"].collect do |pid_file|
+        $1 if pid_file =~ /#{name}\.(\d+)/
+      end.compact.first
     end
 
     def git_path
