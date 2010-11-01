@@ -2,7 +2,7 @@ GEM
   remote: http://rubygems.org/
   specs:
     choice (0.1.4)
-    cijoe (0.7.0)
+    cijoe (0.5.0)
       choice
       sinatra
     daemon_controller (0.2.5)
@@ -28,7 +28,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
-  cijoe
+  cijoe (= 0.5.0)
   daemon_controller
   rspec
   thor

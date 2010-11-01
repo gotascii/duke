@@ -3,6 +3,7 @@ $LOAD_PATH.unshift(File.join(File.dirname(__FILE__), '..', 'lib'))
 
 require 'duke'
 require 'rspec'
+include Duke
 
 Rspec.configure do |c|
   c.mock_with :rspec

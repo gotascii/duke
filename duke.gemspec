@@ -9,7 +9,7 @@ Gem::Specification.new do |s|
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Justin Marney"]
-  s.date = %q{2010-10-31}
+  s.date = %q{2010-11-01}
   s.default_executable = %q{duke}
   s.description = %q{Allows you to start, stop, ping, and list all of your CIJoes.}
   s.email = %q{gotascii@gmail.com}
@@ -45,6 +45,7 @@ Gem::Specification.new do |s|
   s.test_files = [
     "spec/duke/cli_spec.rb",
      "spec/duke/controller_spec.rb",
+     "spec/duke/project_spec.rb",
      "spec/spec_helper.rb"
   ]
 

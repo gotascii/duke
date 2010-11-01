@@ -2,7 +2,7 @@ describe "An instance of Controller" do
   before do
     @repo_name = 'repo'
     @port = 4567
-    @controller = Duke::Controller.new(@repo_name, @port)
+    @controller = Controller.new(@repo_name, @port)
     @dir = Dir.pwd
   end
 

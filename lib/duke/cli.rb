@@ -14,5 +14,16 @@ module Duke
     def cijoed(repo_name, port, log_file, pid_file)
       exec("nohup cijoe -p #{port} #{repo_name} 1>#{log_file} 2>&1 & echo $! > #{pid_file}")
     end
+
+    desc "add NAME|REPO_URL [REPO_URL]", "Adds app with NAME using repo at REPO_URL"
+    def add(name, repo_url=nil)
+      Project.create(name, repo_url)
+      puts "\n\n*** #{name} has been cloned and configured!"
+      puts "*** Next steps probably include:"
+      puts "*** set up #{name}/config/database.yml"
+      puts "*** create the project gemset"
+      puts "*** run bundle install"
+      puts "*** start up cijoe!"
+    end
   end
 end
