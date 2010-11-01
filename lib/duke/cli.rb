@@ -3,11 +3,9 @@ module Duke
     desc "install [DIR]", "sets up DIR or current directory to run multiple cijoes"
     def install(dir=nil)
       dir ||= "."
-      pid_dir = "#{dir}/tmp/pids"
-      log_dir = "#{dir}/log"
-      Dir.mkdir(dir) unless Dir.exists?('.')
-      Dir.mkdir(pid_dir) unless Dir.exists?(pid_dir)
-      Dir.mkdir(log_dir) unless Dir.exists?(log_dir)
+      [dir, "#{dir}/tmp", "#{tmp_dir}/pids", "#{dir}/log"].each do |dir_name|
+        Dir.mkdir(dir_name) unless Dir.exists?(dir_name)
+      end
       directory 'templates', dir
     end
 
