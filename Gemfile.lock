@@ -18,6 +18,9 @@ GEM
     rspec-mocks (2.0.1)
       rspec-core (~> 2.0.1)
       rspec-expectations (~> 2.0.1)
+    simplecov (0.3.6)
+      simplecov-html (>= 0.3.7)
+    simplecov-html (0.3.8)
     sinatra (1.1.0)
       rack (~> 1.1)
       tilt (~> 1.1)
@@ -31,4 +34,5 @@ DEPENDENCIES
   cijoe (= 0.5.0)
   daemon_controller
   rspec
+  simplecov
   thor

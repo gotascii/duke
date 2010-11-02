@@ -3,14 +3,13 @@ module Duke
     include Thor::Actions
     extend Forwardable
     def_delegators :controller, :stop, :pid, :running?
-
-    attr_reader :repo_dir, :repo_url, :controller
+    attr_reader :repo_dir, :repo_url
 
     def self.all
-      repo_dirs.collect do |repo_dir|
+      Dir['*'].collect do |repo_dir|
         p = new(repo_dir)
         p if p.repo_dir?
-      end.flatten
+      end.compact
     end
 
     def self.create(repo_url)
@@ -28,22 +27,19 @@ module Duke
       super
       @repo_url = repo_id if repo_id.repo_url?
       @repo_dir = repo_id.repo_dir
-      @controller = Controller.new(@repo_dir, port)
     end
 
-    def print_status_msg
-      puts "#{repo_dir}, #{running? ? "running on port #{port} with pid #{pid}" : "stopped"}"
+    def controller
+      @controller ||= Controller.new(repo_dir, port)
     end
 
     def start(port)
-      @controller.port = port
-      @controller.start
+      controller.port = port
+      controller.start
     end
 
     def port
-      Dir["#{::Duke::Config.pid_dir}/*.pid"].collect do |pid_file|
-        $1 if pid_file =~ /#{repo_dir}\.(\d+)/
-      end.compact.first
+      Controller.port(repo_dir)
     end
 
     def git_dir
@@ -72,6 +68,10 @@ module Duke
       campfire.each do |k, v|
         add_config_to_repo("campfire.#{k}", v)
       end
+    end
+
+    def print_status_msg
+      puts "#{repo_dir}, #{running? ? "running on port #{port} with pid #{pid}" : "stopped"}"
     end
 
     # def build

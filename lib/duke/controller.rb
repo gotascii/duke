@@ -5,6 +5,18 @@ module Duke
     attr_reader :dir, :repo_dir, :timeout
     attr_accessor :port
 
+    def self.pid_files
+      Dir["#{::Duke::Config.pid_dir}/*.pid"]
+    end
+
+    def self.port(repo_dir)
+      repo_dir_regex = /#{repo_dir}\.(\d+)/
+      pid_files.each do |pid_file|
+        return $1.to_i if pid_file =~ repo_dir_regex
+      end
+      nil
+    end
+
     def initialize(repo_dir, port)
       @dir = Dir.pwd
       @repo_dir = repo_dir

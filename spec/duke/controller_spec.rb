@@ -8,6 +8,29 @@ describe Controller do
     @dir = Dir.pwd
   end
 
+  describe ".pid_files" do
+    it "finds a list of all the pid files in the pid dir" do
+      Dir.should_receive(:[]).with("pid_dir/*.pid").and_return(['pid_file'])
+      Controller.pid_files.should == ['pid_file']
+    end
+  end
+
+  describe ".port(repo_dir)" do
+    context "when a cijoe is running for repo_dir" do
+      it "determines what port cijoe is running on" do
+        Controller.stub(:pid_files).and_return(['repo_dir.4567.pid'])
+        Controller.port('repo_dir').should == 4567
+      end
+    end
+
+    context "when a cijoe is not running for repo_dir" do
+      it "returns nil" do
+        Controller.stub(:pid_files).and_return(['weird_dir.1234.pid'])
+        Controller.port('repo_dir').should == nil
+      end
+    end
+  end
+
   describe "#initialize(repo_dir, port)" do
     it "has a dir that matches cwd" do
       @controller.dir.should == @dir

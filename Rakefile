@@ -26,10 +26,10 @@ RSpec::Core::RakeTask.new(:spec) do |spec|
   spec.pattern = 'spec/**/*_spec.rb'
 end
 
-RSpec::Core::RakeTask.new(:rcov) do |spec|
-  spec.pattern = 'spec/**/*_spec.rb'
-  spec.rcov = true
-  spec.rcov_opts = ['--exclude', 'gems,spec_helper']
+desc "run for cover"
+task :simplecov do
+  ENV['SIMPLECOV'] = 'true'
+  Rake::Task[:spec].invoke
 end
 
 task :spec => :check_dependencies
