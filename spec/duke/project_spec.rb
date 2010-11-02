@@ -1,6 +1,10 @@
 require 'spec_helper'
 
 describe Project do
+  before do
+    @project = Project.new('repo_dir')
+  end
+
   describe ".all" do
     context "without a repo_dir in the current directory" do
       it "does not contain a Project instance" do
@@ -69,10 +73,10 @@ describe Project do
 
     context "when repo_id is a repo_dir" do
       before do
-        @repo_dir = 'repo_dir'
-        @repo_dir.stub(:repo_url?).and_return(false)
-        @repo_dir.stub(:repo_dir).and_return('repo_dir')
-        @project = Project.new(@repo_dir)
+        repo_dir = 'repo_dir'
+        repo_dir.stub(:repo_url?).and_return(false)
+        repo_dir.stub(:repo_dir).and_return('repo_dir')
+        @project = Project.new(repo_dir)
       end
 
       it "does not have a repo_url" do
@@ -87,10 +91,9 @@ describe Project do
 
   describe "#controller" do
     it "instantiates a Controller instance with repo_dir and port" do
-      project = Project.new('repo_dir')
-      project.stub(:port).and_return(4567)
+      @project.stub(:port).and_return(4567)
       Controller.stub(:new).with('repo_dir', 4567).and_return('controller')
-      project.controller.should == 'controller'
+      @project.controller.should == 'controller'
     end
   end
 
@@ -114,17 +117,15 @@ describe Project do
 
   describe "#git_dir" do
     it "is the path to the git config dir" do
-      project = Project.new('repo_dir')
-      project.git_dir.should == "repo_dir/.git"
+      @project.git_dir.should == "repo_dir/.git"
     end
   end
 
   describe "#repo_dir?" do
     it "determines if repo_dir is an actual git repo" do
-      project = Project.new('repo_dir')
-      project.stub(:git_dir).and_return('git_dir')
+      @project.stub(:git_dir).and_return('git_dir')
       File.should_receive(:exist?).with('git_dir').and_return(true)
-      project.repo_dir?.should == true
+      @project.repo_dir?.should == true
     end
   end
 
@@ -140,35 +141,51 @@ describe Project do
 
   describe "#add_config_to_repo(key, value)" do
     it "adds a key value pair to the git config" do
-      project = Project.new('repo_dir')
-      project.stub(:inside).with('repo_dir').and_yield
-      project.should_receive(:run).with("git config --add \"key\" \"value\"")
-      project.add_config_to_repo('key', 'value')
+      @project.stub(:inside).with('repo_dir').and_yield
+      @project.should_receive(:run).with("git config --add \"key\" \"value\"")
+      @project.add_config_to_repo('key', 'value')
     end
   end
 
   describe "#set_runner" do
     it "sets the runner git config entry" do
-      project = Project.new('repo_dir')
-      project.should_receive(:add_config_to_repo).with("cijoe.runner", 'runner')
-      project.set_runner('runner')
+      @project.should_receive(:add_config_to_repo).with("cijoe.runner", 'runner')
+      @project.set_runner('runner')
     end
   end
 
   describe "#set_campfire" do
     it "sets campfire values in the git config" do
-      project = Project.new('repo_dir')
-      project.should_receive(:add_config_to_repo).with("campfire.camp", 'fire')
-      project.should_receive(:add_config_to_repo).with("campfire.fire", 'camp')
-      project.set_campfire({:camp => 'fire', :fire => 'camp'})
+      @project.should_receive(:add_config_to_repo).with("campfire.camp", 'fire')
+      @project.should_receive(:add_config_to_repo).with("campfire.fire", 'camp')
+      @project.set_campfire({:camp => 'fire', :fire => 'camp'})
     end
   end
 
   describe "#port" do
     it "determines what port cijoe is running on" do
-      project = Project.new('repo_dir')
       Controller.should_receive(:port).with('repo_dir').and_return(4567)
-      project.port.should == 4567
+      @project.port.should == 4567
+    end
+  end
+
+  describe "#print_status_msg" do
+    context "when cijoe is not running" do
+      it "puts the repo_dir and indicates cijoe is stopped" do
+        @project.stub(:running?).and_return(false)
+        @project.should_receive(:puts).with("repo_dir, stopped")
+        @project.print_status_msg
+      end
+    end
+
+    context "when cijoe is running" do
+      it "puts the repo_dir, and indicates the port and pid of cijoe" do
+        @project.stub(:running?).and_return(true)
+        @project.stub(:port).and_return(4567)
+        @project.stub(:pid).and_return(666)
+        @project.should_receive(:puts).with("repo_dir, running on port 4567 with pid 666")
+        @project.print_status_msg
+      end
     end
   end
 end
