@@ -1,7 +1,7 @@
 module Duke
   class Controller
     extend Forwardable
-    def_delegators :controller, :start, :stop, :running?
+    def_delegators :controller, :start, :stop, :running?, :pid
     attr_reader :dir, :repo_dir, :timeout
     attr_accessor :port
 
@@ -17,11 +17,11 @@ module Duke
     end
 
     def pid_file
-      "#{dir}/tmp/pids/#{identifier}.pid"
+      "#{dir}/#{::Duke::Config.pid_dir}/#{identifier}.pid"
     end
 
     def log_file
-      "#{dir}/log/#{identifier}.log"
+      "#{dir}/#{::Duke::Config.log_dir}/#{identifier}.log"
     end
 
     def ping_command

@@ -2,18 +2,15 @@ module Duke
   class Project < Thor::Group
     include Thor::Actions
     extend Forwardable
-    def_delegators :controller, :stop, :running?
+    def_delegators :controller, :stop, :pid, :running?
 
     attr_reader :repo_dir, :repo_url, :controller
 
-    def self.repo_dirs
-      Dir['*'].select do |repo_dir|
-        new(repo_dir).repo_dir?
-      end
-    end
-
     def self.all
-      repo_dirs.collect{|repo_dir| new(repo_dir) }
+      repo_dirs.collect do |repo_dir|
+        p = new(repo_dir)
+        p if p.repo_dir?
+      end.flatten
     end
 
     def self.create(repo_url)
@@ -34,13 +31,17 @@ module Duke
       @controller = Controller.new(@repo_dir, port)
     end
 
+    def status_msg
+      "#{repo_dir}, #{running? ? "running on port #{port} with pid #{pid}" : "stopped"}"
+    end
+
     def start(port)
       @controller.port = port
       @controller.start
     end
 
     def port
-      Dir["tmp/pids/*.pid"].collect do |pid_file|
+      Dir["#{::Duke::Config.pid_dir}/*.pid"].collect do |pid_file|
         $1 if pid_file =~ /#{repo_dir}\.(\d+)/
       end.compact.first
     end

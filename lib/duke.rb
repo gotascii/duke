@@ -2,6 +2,7 @@ $LOAD_PATH << File.dirname(__FILE__)
 
 require 'forwardable'
 require 'daemon_controller'
+require 'fileutils'
 require 'thor'
 require 'thor/group'
 require 'socket'
@@ -15,6 +16,8 @@ require 'duke/app'
 module Duke
   CONFIG_DEFAULT = {
     :runner => 'rake cruise',
+    :pid_dir => "tmp/pids",
+    :log_dir => "log",
     :campfire => {}
   }
   config_path = File.join('config', 'config.yml')

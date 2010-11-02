@@ -12,7 +12,7 @@ when '-h', '--help'
 Usage: duke COMMAND [ARGS]
 
 Commands:
-install [DIR]         install duke into DIR or current directory
+new [DIR]             install duke into DIR or current directory
 add REPO_URL          add REPO_URL to current duke directory
 start REPO_NAME PORT  start cijoe for REPO_DIR on PORT
 stop REPO_NAME        stop cijoe for REPO_DIR
