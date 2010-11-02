@@ -31,8 +31,8 @@ module Duke
       @controller = Controller.new(@repo_dir, port)
     end
 
-    def status_msg
-      "#{repo_dir}, #{running? ? "running on port #{port} with pid #{pid}" : "stopped"}"
+    def print_status_msg
+      puts "#{repo_dir}, #{running? ? "running on port #{port} with pid #{pid}" : "stopped"}"
     end
 
     def start(port)

@@ -33,9 +33,7 @@ MSG
     end
 
     def list
-      Project.all.each do |p|
-        puts p.status_msg
-      end
+      Project.all.each(&:print_status_msg)
     end
 
     def cijoed(repo_dir, port, log_file, pid_file)
