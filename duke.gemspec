@@ -9,7 +9,7 @@ Gem::Specification.new do |s|
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Justin Marney"]
-  s.date = %q{2010-11-02}
+  s.date = %q{2010-11-03}
   s.default_executable = %q{duke}
   s.description = %q{Allows you to start, stop, ping, and list all of your CIJoes.}
   s.email = %q{gotascii@gmail.com}
@@ -41,8 +41,11 @@ Gem::Specification.new do |s|
      "spec/duke/project_spec.rb",
      "spec/spec_helper.rb",
      "templates/config.ru",
-     "templates/public/show.html",
-     "templates/views/show.erb"
+     "templates/public/help.html",
+     "templates/public/stylesheets/base.css",
+     "templates/public/stylesheets/font.css",
+     "templates/public/stylesheets/reset.css",
+     "templates/views/index.erb"
   ]
   s.homepage = %q{http://github.com/gotascii/duke}
   s.rdoc_options = ["--charset=UTF-8"]
