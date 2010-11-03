@@ -1,0 +1,140 @@
+/* Based on http://html5boilerplate.com */
+
+body, select, input, textarea {
+  color: #444;
+	font-family: 'LeagueGothicRegular', sans-serif;
+}
+
+h1,h2,h3,h4,h5,h6 {
+  font-weight: bold;
+}
+
+/* always force a scrollbar in non-IE */ 
+html {
+  overflow-y: scroll; 
+}
+ 
+/* Accessible focus treatment: people.opera.com/patrickl/experiments/keyboard/test */
+a:hover, a:active {
+  outline: none;
+}
+
+a, a:active, a:visited {
+  color: #607890;
+}
+
+a:hover {
+  color: #036;
+}
+
+ul, ol {
+  margin-left: 1.8em;
+}
+
+ol {
+  list-style-type: decimal;
+}
+
+/* Remove margins for navigation lists */
+nav ul, nav li {
+  margin: 0;
+}
+
+small {
+  font-size: 85%;
+}
+
+strong, th {
+  font-weight: bold;
+}
+
+td, td img {
+  vertical-align: top;
+}
+
+sub {
+  vertical-align: sub;
+  font-size: smaller;
+}
+
+sup {
+  vertical-align: super;
+  font-size: smaller;
+}
+
+pre { 
+  padding: 15px; 
+  white-space: pre-line;
+}
+
+/* align checkboxes, radios, text inputs with their label
+   by: Thierry Koblentz tjkdesign.com/ez-css/css/base.css  */
+input[type="radio"] {
+  vertical-align: text-bottom;
+}
+
+input[type="checkbox"] {
+  vertical-align: bottom;
+}
+
+/* hand cursor on clickable input elements */
+label,
+input[type=button],
+input[type=submit],
+button {
+  cursor: pointer;
+}
+ 
+/* webkit browsers add a 2px margin outside the chrome of form elements */  
+button, input, select, textarea {
+  margin: 0;
+}
+
+/* These selection declarations have to be separate.
+   No text-shadow: twitter.com/miketaylr/status/12228805301 
+   Also: hot pink. */
+::-moz-selection {
+  background: #FF5E99;
+  color:#fff;
+  text-shadow: none;
+}
+
+::selection {
+  background:#FF5E99;
+  color:#fff;
+  text-shadow: none;
+}
+
+/* 
+ * Non-semantic helper classes 
+ */
+
+/* Hide for both screenreaders and browsers
+   css-discuss.incutio.com/wiki/Screenreader_Visibility */
+.hidden {
+  display: none;
+  visibility: hidden;
+}
+
+/* Hide visually and from screenreaders, but maintain layout */
+.invisible {
+  visibility: hidden;
+}
+
+/* >> The Magnificent CLEARFIX: Updated to prevent margin-collapsing on child elements << j.mp/bestclearfix */
+.clearfix:before,
+.clearfix:after {
+  content: "\0020";
+  display: block;
+  height: 0;
+  visibility: hidden;
+} 
+
+.clearfix:after {
+  clear: both;
+}
+
+/* Fix clearfix: blueprintcss.lighthouseapp.com/projects/15318/tickets/5-extra-margin-padding-bottom-of-page */
+.clearfix {
+  zoom: 1;
+}

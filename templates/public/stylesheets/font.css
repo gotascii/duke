@@ -1,0 +1,26 @@
+/* Based on http://html5boilerplate.com */
+
+/* fonts.css from the YUI Library: developer.yahoo.com/yui/
+   Refer to developer.yahoo.com/yui/3/cssfonts/ for font sizing percentages
+
+  There are three custom edits:
+   * remove arial, helvetica from explicit font stack
+   * we normalize monospace styles ourselves
+   * table font-size is reset in the HTML5 reset above so there is no need to repeat
+*/
+body {
+  font:13px/1.231 sans-serif;
+  *font-size:small;
+} /* hack retained to preserve specificity */
+
+select, input, textarea, button {
+  font:99% sans-serif;
+}
+
+@font-face {
+	font-family: 'LeagueGothicRegular';
+	src: url('league_gothic-webfont.eot');
+	src: local('☺'), url('league_gothic-webfont.woff') format('woff'), url('league_gothic-webfont.ttf') format('truetype'), url('league_gothic-webfont.svg#webfont7TBIrd04') format('svg');
+	font-weight: normal;
+	font-style: normal;
+}
