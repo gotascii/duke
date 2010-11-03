@@ -15,6 +15,7 @@ require 'duke/app'
 
 module Duke
   CONFIG_DEFAULT = {
+    :host => 'localhost',
     :runner => 'rake cruise',
     :pid_dir => "tmp/pids",
     :log_dir => "log",

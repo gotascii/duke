@@ -109,4 +109,22 @@ describe Cli do
       @cli.cijoed('repo_name', 4567, 'log_file', 'pid_file')
     end
   end
+
+  describe "#build(repo_dir)" do
+    before do
+      @project = double("project")
+    end
+
+    it "instantiates the Project with repo_dir" do
+      @project.stub(:build)
+      Project.should_receive(:new).with('repo_dir').and_return(@project)
+      @cli.build('repo_dir')
+    end
+
+    it "builds the Project in repo_dir" do
+      @project.should_receive(:build)
+      Project.stub(:new).and_return(@project)
+      @cli.build('repo_dir')
+    end
+  end
 end

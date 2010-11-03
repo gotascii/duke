@@ -74,6 +74,7 @@ describe Controller do
 
   describe "#ping_command" do
     it "verifies that cijoe is running" do
+      ::Duke::Config.stub(:host).and_return("localhost")
       TCPSocket.should_receive(:new).with('localhost', 4567).and_return('sockette!')
       @controller.ping_command.call.should == 'sockette!'
     end

@@ -37,7 +37,7 @@ module Duke
     end
 
     def ping_command
-      lambda { TCPSocket.new('localhost', port) }
+      lambda { TCPSocket.new(::Duke::Config.host, port) }
     end
 
     def controller

@@ -36,6 +36,10 @@ MSG
       Project.all.each(&:print_status_msg)
     end
 
+    def build(repo_dir)
+      Project.new(repo_dir).build
+    end
+
     def cijoed(repo_dir, port, log_file, pid_file)
       exec("nohup cijoe -p #{port} #{repo_dir} 1>#{log_file} 2>&1 & echo $! > #{pid_file}")
     end

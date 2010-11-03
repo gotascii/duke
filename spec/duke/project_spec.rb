@@ -188,4 +188,14 @@ describe Project do
       end
     end
   end
+
+  describe "#build" do
+    it "sends a POST to cijoe in order to start a build" do
+      ::Duke::Config.stub(:host).and_return('localhost')
+      URI.stub(:parse).with("http://localhost:4567").and_return('uri')
+      Net::HTTP.should_receive(:post_form).with('uri', {})
+      @project.stub(:port).and_return(4567)
+      @project.build
+    end
+  end
 end

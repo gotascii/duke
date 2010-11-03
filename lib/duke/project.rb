@@ -74,9 +74,9 @@ module Duke
       puts "#{repo_dir}, #{running? ? "running on port #{port} with pid #{pid}" : "stopped"}"
     end
 
-    # def build
-    #   uri = URI.parse("http://#{Config.cijoe_url}/#{name}")
-    #   Net::HTTP.post_form(uri, {})
-    # end
+    def build
+      uri = URI.parse("http://#{::Duke::Config.host}:#{port}")
+      Net::HTTP.post_form(uri, {})
+    end
   end
 end
