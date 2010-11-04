@@ -1,22 +1,7 @@
 /* Based on http://html5boilerplate.com */
 
-body, select, input, textarea {
-  color: #444;
-	font-family: 'LeagueGothicRegular', sans-serif;
-}
-
-h1,h2,h3,h4,h5,h6 {
+h1, h2, h3, h4, h5, h6 {
   font-weight: bold;
-}
-
-/* always force a scrollbar in non-IE */ 
-html {
-  overflow-y: scroll; 
-}
- 
-/* Accessible focus treatment: people.opera.com/patrickl/experiments/keyboard/test */
-a:hover, a:active {
-  outline: none;
 }
 
 a, a:active, a:visited {
@@ -90,6 +75,11 @@ button, input, select, textarea {
   margin: 0;
 }
 
+/* webkit browsers add a 2px margin outside the chrome of form elements */  
+button::-moz-focus-inner {
+  border:0;
+}
+
 /* These selection declarations have to be separate.
    No text-shadow: twitter.com/miketaylr/status/12228805301 
    Also: hot pink. */
@@ -137,4 +127,24 @@ button, input, select, textarea {
 /* Fix clearfix: blueprintcss.lighthouseapp.com/projects/15318/tickets/5-extra-margin-padding-bottom-of-page */
 .clearfix {
   zoom: 1;
+}
+
+/* Fontz */
+
+/* fonts.css from the YUI Library: developer.yahoo.com/yui/
+   Refer to developer.yahoo.com/yui/3/cssfonts/ for font sizing percentages
+
+  There are three custom edits:
+   * remove arial, helvetica from explicit font stack
+   * we normalize monospace styles ourselves
+   * table font-size is reset in the HTML5 reset above so there is no need to repeat
+*/
+body {
+  font:13px/1.231 sans-serif;
+  *font-size:small;
+  font-smooth: always;
+} /* hack retained to preserve specificity <- WTF? */
+
+select, input, textarea, button {
+  font:99% sans-serif;
 }

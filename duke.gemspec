@@ -41,11 +41,15 @@ Gem::Specification.new do |s|
      "spec/duke/project_spec.rb",
      "spec/spec_helper.rb",
      "templates/config.ru",
+     "templates/public/fonts/league_gothic-webfont.eot",
+     "templates/public/fonts/league_gothic-webfont.svg",
+     "templates/public/fonts/league_gothic-webfont.ttf",
+     "templates/public/fonts/league_gothic-webfont.woff",
      "templates/public/help.html",
      "templates/public/stylesheets/base.css",
      "templates/public/stylesheets/font.css",
      "templates/public/stylesheets/reset.css",
-     "templates/views/index.erb"
+     "templates/views/index.rhtml"
   ]
   s.homepage = %q{http://github.com/gotascii/duke}
   s.rdoc_options = ["--charset=UTF-8"]
