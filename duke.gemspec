@@ -9,7 +9,7 @@ Gem::Specification.new do |s|
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Justin Marney"]
-  s.date = %q{2010-11-03}
+  s.date = %q{2010-11-04}
   s.default_executable = %q{duke}
   s.description = %q{Allows you to start, stop, ping, and list all of your CIJoes.}
   s.email = %q{gotascii@gmail.com}
@@ -41,13 +41,10 @@ Gem::Specification.new do |s|
      "spec/duke/project_spec.rb",
      "spec/spec_helper.rb",
      "templates/config.ru",
-     "templates/public/fonts/league_gothic-webfont.eot",
-     "templates/public/fonts/league_gothic-webfont.svg",
-     "templates/public/fonts/league_gothic-webfont.ttf",
-     "templates/public/fonts/league_gothic-webfont.woff",
      "templates/public/help.html",
      "templates/public/stylesheets/base.css",
-     "templates/public/stylesheets/font.css",
+     "templates/public/stylesheets/button.css",
+     "templates/public/stylesheets/custom.css",
      "templates/public/stylesheets/reset.css",
      "templates/views/index.rhtml"
   ]
