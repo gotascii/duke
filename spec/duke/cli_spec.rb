@@ -52,7 +52,7 @@ describe Cli do
   describe "#add(repo_url)" do
     it "creates a Project with repo_url" do
       project = double("project", :repo_dir => 'repo_dir')
-      Project.should_receive(:create).with("repo_url").and_return(project)
+      Project.should_receive(:create).with(:repo_url => "repo_url").and_return(project)
       @cli.stub(:puts)
       @cli.add("repo_url")
     end
@@ -65,7 +65,7 @@ describe Cli do
 
     it "instantiates the Project with repo_dir" do
       @project.stub(:start)
-      Project.should_receive(:find).with('repo_dir').and_return(@project)
+      Project.should_receive(:find).with(:repo_dir => 'repo_dir').and_return(@project)
       @cli.start('repo_dir', 4567)
     end
 
@@ -83,7 +83,7 @@ describe Cli do
 
     it "instantiates the Project with repo_dir" do
       @project.stub(:stop)
-      Project.should_receive(:find).with('repo_dir').and_return(@project)
+      Project.should_receive(:find).with(:repo_dir => 'repo_dir').and_return(@project)
       @cli.stop('repo_dir')
     end
 
@@ -117,7 +117,7 @@ describe Cli do
 
     it "instantiates the Project with repo_dir" do
       @project.stub(:build)
-      Project.should_receive(:find).with('repo_dir').and_return(@project)
+      Project.should_receive(:find).with(:repo_dir => 'repo_dir').and_return(@project)
       @cli.build('repo_dir')
     end
 

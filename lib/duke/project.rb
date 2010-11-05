@@ -7,7 +7,7 @@ module Duke
 
     def self.all
       Dir['*'].collect do |repo_dir|
-        find(repo_dir)
+        find(:repo_dir => repo_dir)
       end.compact
     end
 
@@ -19,18 +19,18 @@ module Duke
       p
     end
 
-    def self.find(repo_id)
-      p = new(repo_id)
+    def self.find(opts)
+      p = new(opts)
       p if p.repo_dir?
     end
 
-    def initialize(repo_id)
+    def initialize(opts)
       args = []
       options = {}
       config = {}
       super
-      @repo_url = repo_id if repo_id.repo_url?
-      @repo_dir = repo_id.repo_dir
+      @repo_url = opts[:repo_url] if opts[:repo_url]
+      @repo_dir = opts[:repo_dir] || opts[:repo_url].repo_dir
     end
 
     def controller

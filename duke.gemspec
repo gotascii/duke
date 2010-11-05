@@ -11,7 +11,7 @@ Gem::Specification.new do |s|
   s.authors = ["Justin Marney"]
   s.date = %q{2010-11-04}
   s.default_executable = %q{duke}
-  s.description = %q{Allows you to easily manage multiple cijoes.}
+  s.description = %q{Allows you to easily manage multiple CIJoes.}
   s.email = %q{gotascii@gmail.com}
   s.executables = ["duke"]
   s.extra_rdoc_files = [

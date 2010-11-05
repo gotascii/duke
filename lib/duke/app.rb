@@ -5,9 +5,9 @@ module Duke
       erb :index
     end
 
-    get '/:repo_dir/start/:port' do
-      @project = Project.find(params[:repo_dir])
-      @project.start(params[:port])
+    put '/projects/:id' do
+      @project = Project.find(:repo_dir => params[:id])
+      @project.start(params[:project][:port])
       redirect '/'
     end
   end

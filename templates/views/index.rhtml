@@ -18,27 +18,37 @@
         <thead class="hidden">
           <tr>
             <th>Name</th>
+            <th>Port</th>
             <th>Actions</th>
           </tr>
         </thead>
         <tbody>
-          <% @projects.each do |project| %>
-            <tr class="normal">
-              <td class="col-project-name">
-                <p><%= project.name %></p>
-              </td>
-              <td>
-                <% if project.running? %>
-                  <button class="black">Stop</button>
-                <% else %>
-                  <button class="blue">Start</button>
-                <% end %>
-              </td>
-            </tr>
-          <% end %>
+          <tr>
+            <td class="col-project-create" colspan="3">
+              <form action="/projects">
+                <input name="project[repo_url]" placeholder="Repository"/>
+                <button type="submit" class="blue">Create</button>
+              </form>
+            </td>
+          </tr>
+          <tr>
+            <td class="col-project-name">
+              <p>G50</p>
+            </td>
+            <td class="col-project-port" colspan="2">
+              <form action="/projects/project.repo_dir">
+                <input type="hidden" name="_method" value="PUT">
+                <input name="project[port]" placeholder="Port"/>
+                <button type="submit" class="blue">Start</button>
+              </form>
+            </td>
+          </tr>
           <tr class="pass">
             <td>
               <p>✔ Bypass</p>
+            </td>
+            <td class="col-project-port">
+              <p>4567</p>
             </td>
             <td>
               <button class="black">Stop</button>
@@ -47,6 +57,9 @@
           <tr class="fail">
             <td>
               <p>☹ Mosaic</p>
+            </td>
+            <td class="col-project-port">
+              <p>666</p>
             </td>
             <td>
               <button class="black">Stop</button>

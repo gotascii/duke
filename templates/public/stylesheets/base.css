@@ -90,7 +90,7 @@ button::-moz-focus-inner {
 }
 
 ::selection {
-  background:#FF5E99;
+  background:#00E1FF;
   color:#fff;
   text-shadow: none;
 }

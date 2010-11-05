@@ -13,7 +13,7 @@ module Duke
     end
 
     def add(repo_url)
-      p = Project.create(repo_url)
+      p = Project.create(:repo_url => repo_url)
       puts <<-MSG
 *** #{p.repo_dir} has been cloned and configured!
 *** Don't forget to:
@@ -25,11 +25,11 @@ MSG
     end
 
     def start(repo_dir, port)
-      Project.find(repo_dir).start(port)
+      Project.find(:repo_dir => repo_dir).start(port)
     end
 
     def stop(repo_dir)
-      Project.find(repo_dir).stop
+      Project.find(:repo_dir => repo_dir).stop
     end
 
     def list
@@ -37,7 +37,7 @@ MSG
     end
 
     def build(repo_dir)
-      Project.find(repo_dir).build
+      Project.find(:repo_dir => repo_dir).build
     end
 
     def cijoed(repo_dir, port, log_file, pid_file)
