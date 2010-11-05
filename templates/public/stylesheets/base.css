@@ -9,7 +9,7 @@ a, a:active, a:visited {
 }
 
 a:hover {
-  color: #036;
+  color: #D1FF03;
 }
 
 ul, ol {
@@ -84,14 +84,14 @@ button::-moz-focus-inner {
    No text-shadow: twitter.com/miketaylr/status/12228805301 
    Also: hot pink. */
 ::-moz-selection {
-  background: #FF5E99;
-  color:#fff;
+  background: #D1FF03;
+  color:#000;
   text-shadow: none;
 }
 
 ::selection {
-  background:#00E1FF;
-  color:#fff;
+  background:#D1FF03;
+  color:#000;
   text-shadow: none;
 }
 

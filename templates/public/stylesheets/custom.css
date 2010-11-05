@@ -9,16 +9,14 @@ hgroup {
 }
 
 hgroup h1, hgroup h2 {
+  width:640px;
+  padding-left: 20px;
   margin-left: auto;
   margin-right: auto;
 }
 
 hgroup h1 {
-  padding-left: 326px;
-}
-
-hgroup h2 {
-  padding-left: 330px;
+  padding-left: 13px;
 }
 
 hgroup h1 {
@@ -39,7 +37,7 @@ section {
 ul {
   width: 660px;  
   list-style: none;
-  margin: 0;
+  margin: 0 0 15px 0;
 }
 
 li {
@@ -100,4 +98,8 @@ input {
 
 .pass {
   background: #1FBD00;
+}
+
+.building {
+  background: #FDD820;
 }
