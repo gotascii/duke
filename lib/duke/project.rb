@@ -3,6 +3,7 @@ module Duke
     include Thor::Actions
     extend Forwardable
     def_delegators :controller, :stop, :pid, :running?
+    def_delegators :cijoe, :building?
     attr_reader :repo_dir, :repo_url
 
     def self.all
@@ -31,6 +32,14 @@ module Duke
       super
       @repo_url = opts[:repo_url] if opts[:repo_url]
       @repo_dir = opts[:repo_dir] || opts[:repo_url].repo_dir
+    end
+
+    def cijoe
+      @cijoe ||= begin
+        ci = CIJoe.new(repo_dir)
+        ci.restore
+        ci
+      end if repo_dir?
     end
 
     def controller
@@ -88,12 +97,12 @@ module Duke
       Net::HTTP.post_form(uri, {})
     end
 
-    def ping
-      Net::HTTP.start('localhost', 4567) {|http| http.get("/ping") }
+    def built?
+      !cijoe.last_build.nil?
     end
 
-    def pass?
-      ping.code == 200
+    def passing?
+      !cijoe.last_build.failed?
     end
   end
 end

@@ -15,13 +15,6 @@
     </hgroup>
     <section>
       <table>
-        <thead class="hidden">
-          <tr>
-            <th>Name</th>
-            <th>Port</th>
-            <th>Actions</th>
-          </tr>
-        </thead>
         <tbody>
           <tr>
             <td class="col-project-create" colspan="3">
@@ -31,6 +24,22 @@
               </form>
             </td>
           </tr>
+          
+          <% @projects.each do |project| %>
+            <tr>
+              <td class="col-project-name">
+                <p>G50</p>
+              </td>
+              <td class="col-project-port" colspan="2">
+                <form action="/projects/project.repo_dir">
+                  <input type="hidden" name="_method" value="PUT">
+                  <input name="project[port]" placeholder="Port"/>
+                  <button type="submit" class="blue">Start</button>
+                </form>
+              </td>
+            </tr>
+          <% end %>
+          
           <tr>
             <td class="col-project-name">
               <p>G50</p>

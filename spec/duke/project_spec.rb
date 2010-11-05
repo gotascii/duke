@@ -14,7 +14,7 @@ describe Project do
         Project.all.should be_empty
       end
     end
-
+  
     context "with a repo_dir in the current directory" do
       it "contains the Project instance for repo_dir" do
         Dir.stub(:[]).with('*').and_return(['repo_dir'])
@@ -24,28 +24,28 @@ describe Project do
       end
     end
   end
-
+  
   describe ".create" do
     before do
       @project = double("project", :clone => nil, :set_runner => nil, :set_campfire => nil)
       Project.stub(:new).with(:repo_url => 'repo_url').and_return(@project)
     end
-
+  
     it "instantiates a new Project instance with repo_url" do
       Project.create(:repo_url => 'repo_url').should == @project
     end
-
+  
     it "clones the Project instance" do
       @project.should_receive(:clone)
       Project.create(:repo_url => 'repo_url')
     end
-
+  
     it "sets the Project instance runner command from config" do
       Duke::Config.stub(:runner).and_return('runner')
       @project.should_receive(:set_runner).with('runner')
       Project.create(:repo_url => 'repo_url')
     end
-
+  
     it "sets the Project instance campfire from config" do
       Duke::Config.stub(:campfire).and_return('campfire')
       @project.should_receive(:set_campfire).with('campfire')
@@ -53,8 +53,8 @@ describe Project do
     end
   end
 
-  describe "#initialize(repo_id)" do
-    context "when id is a repo_url" do
+  describe "#initialize(opts)" do
+    context "when opts contains a repo_url" do
       before do
         repo_url = 'repo_url'
         repo_url.stub(:repo_dir).and_return('repo_dir')
@@ -70,11 +70,11 @@ describe Project do
       end
     end
 
-    context "when repo_id is a repo_dir" do
+    context "when opts contains a repo_dir" do
       it "does not have a repo_url" do
         @project.repo_url.should be_nil
       end
-
+    
       it "has a repo_dir" do
         @project.repo_dir.should == 'repo_dir'
       end
@@ -88,31 +88,31 @@ describe Project do
       @project.controller.should == 'controller'
     end
   end
-
+  
   describe "#start(port)" do
     before do
       @controller = double("controller", :port= => nil, :start => nil)
       @project = Project.new(:repo_dir => 'repo_dir')
       @project.stub(:controller).and_return(@controller)
     end
-
+  
     it "sets the controller port" do
       @controller.should_receive(:port=).with(4567)
       @project.start(4567)
     end
-
+  
     it "starts the controller" do
       @controller.should_receive(:start)
       @project.start(4567)
     end
   end
-
+  
   describe "#git_dir" do
     it "is the path to the git config dir" do
       @project.git_dir.should == "repo_dir/.git"
     end
   end
-
+  
   describe "#repo_dir?" do
     it "determines if repo_dir is an actual git repo" do
       @project.stub(:git_dir).and_return('git_dir')
@@ -120,7 +120,7 @@ describe Project do
       @project.repo_dir?.should == true
     end
   end
-
+  
   describe "#clone" do
     it "clones the repo_url" do
       project = Project.new(:repo_url => 'repo_url')
@@ -128,7 +128,7 @@ describe Project do
       project.clone
     end
   end
-
+  
   describe "#add_config_to_repo(key, value)" do
     it "adds a key value pair to the git config" do
       @project.stub(:inside).with('repo_dir').and_yield
@@ -159,25 +159,25 @@ describe Project do
     end
   end
 
-  describe "#print_status_msg" do
-    context "when cijoe is not running" do
-      it "puts the repo_dir and indicates cijoe is stopped" do
-        @project.stub(:running?).and_return(false)
-        @project.should_receive(:puts).with("repo_dir, stopped")
-        @project.print_status_msg
-      end
-    end
-  
-    context "when cijoe is running" do
-      it "puts the repo_dir, and indicates the port and pid of cijoe" do
-        @project.stub(:running?).and_return(true)
-        @project.stub(:port).and_return(4567)
-        @project.stub(:pid).and_return(666)
-        @project.should_receive(:puts).with("repo_dir, port 4567, pid 666, building or broken")
-        @project.print_status_msg
-      end
-    end
-  end
+  # describe "#print_status_msg" do
+  #   context "when cijoe is not running" do
+  #     it "puts the repo_dir and indicates cijoe is stopped" do
+  #       @project.stub(:running?).and_return(false)
+  #       @project.should_receive(:puts).with("repo_dir, stopped")
+  #       @project.print_status_msg
+  #     end
+  #   end
+  # 
+  #   context "when cijoe is running" do
+  #     it "puts the repo_dir, and indicates the port and pid of cijoe" do
+  #       @project.stub(:running?).and_return(true)
+  #       @project.stub(:port).and_return(4567)
+  #       @project.stub(:pid).and_return(666)
+  #       @project.should_receive(:puts).with("repo_dir, port 4567, pid 666, building or broken")
+  #       @project.print_status_msg
+  #     end
+  #   end
+  # end
   
   describe "#build" do
     it "sends a POST to cijoe in order to start a build" do
@@ -199,36 +199,56 @@ describe Project do
     end
   end
 
-  describe "#ping" do
-    it "connects to cijoe and returns the response" do
-      Duke::Config.stub(:host).and_return('localhost')
-      Net::HTTP.should_receive(:start).with('localhost', 4567).and_return('response')
-      @project.ping.should == 'response'
-    end
-
-    it "sends a GET to /ping" do
-      Duke::Config.stub(:host).and_return('localhost')
-      http = double("http")
-      http.should_receive(:get).with("/ping")
-      Net::HTTP.stub(:start).and_yield(http)
-      @project.ping
-    end
-  end
-
-  describe "#pass?" do
-    context "when ping has a 200 code" do
-      it "is true" do
-        ping = double("ping", :code => 200)
-        @project.stub(:ping).and_return(ping)
-        @project.pass?.should be_true
+  describe "#cijoe" do
+    context "when project has a repo_dir?" do
+      it "instantiates a new cijoe with repo_dir" do
+        @project.stub(:repo_dir?).and_return(true)
+        cijoe = double("cijoe", :restore => nil)
+        CIJoe.should_receive(:new).with('repo_dir').and_return(cijoe)
+        @project.cijoe.should == cijoe
       end
     end
 
-    context "when ping has a 412 code" do
+    context "when project does not have a repo_dir?" do
+      it "returns nil" do
+        @project.stub(:repo_dir?).and_return(false)
+        @project.cijoe.should be_nil
+      end
+    end
+  end
+
+  describe "#built?" do
+    context "when cijoe.last_build is nil" do
       it "is false" do
-        ping = double("ping", :code => 412)
-        @project.stub(:ping).and_return(ping)
-        @project.pass?.should be_false
+        @project.stub(:cijoe).and_return(double("cijoe", :last_build => nil))
+        @project.built?.should be_false
+      end
+    end
+
+    context "when cijoe.last_build is not nil" do
+      it "is true" do
+        @project.stub(:cijoe).and_return(double("cijoe", :last_build => true))
+        @project.built?.should be_true
+      end
+    end
+  end
+
+  describe "#passing?" do
+    context "when cijoe.last_build.failed? is true" do
+      it "is false" do
+        last_build = double("last_build", :failed? => true)
+        cijoe = double("cijoe", :last_build => last_build)
+        @project.stub(:cijoe).and_return(cijoe)
+        @project.passing?.should be_false
+      end
+    end
+
+    context "when cijoe.last_build.failed? is false" do
+      it "is true" do
+        last_build = double("last_build", :failed? => false)
+        cijoe = double("cijoe", :last_build => last_build)
+        @project.stub(:cijoe).and_return(cijoe)
+        @project.passing?.should be_true
       end
     end
   end
