@@ -75,12 +75,25 @@ module Duke
     end
 
     def print_status_msg
-      puts "#{repo_dir}, #{running? ? "running on port #{port} with pid #{pid}" : "stopped"}"
+      msg = if running?
+        "port #{port}, pid #{pid}, #{pass? ? 'passing' : 'building or broken' }"
+      else
+        "stopped"
+      end
+      puts "#{repo_dir}, #{msg}"
     end
 
     def build
       uri = URI.parse("http://#{Config.host}:#{port}")
       Net::HTTP.post_form(uri, {})
+    end
+
+    def ping
+      Net::HTTP.start('localhost', 4567) {|http| http.get("/ping") }
+    end
+
+    def pass?
+      ping.code == 200
     end
   end
 end

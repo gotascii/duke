@@ -158,7 +158,7 @@ describe Project do
       @project.port.should == 4567
     end
   end
-  
+
   describe "#print_status_msg" do
     context "when cijoe is not running" do
       it "puts the repo_dir and indicates cijoe is stopped" do
@@ -173,7 +173,7 @@ describe Project do
         @project.stub(:running?).and_return(true)
         @project.stub(:port).and_return(4567)
         @project.stub(:pid).and_return(666)
-        @project.should_receive(:puts).with("repo_dir, running on port 4567 with pid 666")
+        @project.should_receive(:puts).with("repo_dir, port 4567, pid 666, building or broken")
         @project.print_status_msg
       end
     end
@@ -195,6 +195,40 @@ describe Project do
         project = double("project", :repo_dir? => true)
         Project.should_receive(:new).with(:repo_dir => 'repo_dir').and_return(project)
         Project.find(:repo_dir => 'repo_dir').should == project
+      end
+    end
+  end
+
+  describe "#ping" do
+    it "connects to cijoe and returns the response" do
+      Duke::Config.stub(:host).and_return('localhost')
+      Net::HTTP.should_receive(:start).with('localhost', 4567).and_return('response')
+      @project.ping.should == 'response'
+    end
+
+    it "sends a GET to /ping" do
+      Duke::Config.stub(:host).and_return('localhost')
+      http = double("http")
+      http.should_receive(:get).with("/ping")
+      Net::HTTP.stub(:start).and_yield(http)
+      @project.ping
+    end
+  end
+
+  describe "#pass?" do
+    context "when ping has a 200 code" do
+      it "is true" do
+        ping = double("ping", :code => 200)
+        @project.stub(:ping).and_return(ping)
+        @project.pass?.should be_true
+      end
+    end
+
+    context "when ping has a 412 code" do
+      it "is false" do
+        ping = double("ping", :code => 412)
+        @project.stub(:ping).and_return(ping)
+        @project.pass?.should be_false
       end
     end
   end

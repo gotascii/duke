@@ -1,4 +1,4 @@
-require 'duke'
+require '../lib/duke'
 
 Duke::App.configure do |config|
   config.set :app_file, __FILE__
