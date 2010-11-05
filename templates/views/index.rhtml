@@ -14,68 +14,39 @@
       <h2>The CIJoe Manager</h2>
     </hgroup>
     <section>
-      <table>
-        <tbody>
-          <tr>
-            <td class="col-project-create" colspan="3">
-              <form action="/projects">
-                <input name="project[repo_url]" placeholder="Repository"/>
-                <button type="submit" class="blue">Create</button>
-              </form>
-            </td>
-          </tr>
-          
-          <% @projects.each do |project| %>
-            <tr>
-              <td class="col-project-name">
-                <p>G50</p>
-              </td>
-              <td class="col-project-port" colspan="2">
-                <form action="/projects/project.repo_dir">
-                  <input type="hidden" name="_method" value="PUT">
-                  <input name="project[port]" placeholder="Port"/>
-                  <button type="submit" class="blue">Start</button>
-                </form>
-              </td>
-            </tr>
-          <% end %>
-          
-          <tr>
-            <td class="col-project-name">
-              <p>G50</p>
-            </td>
-            <td class="col-project-port" colspan="2">
-              <form action="/projects/project.repo_dir">
-                <input type="hidden" name="_method" value="PUT">
-                <input name="project[port]" placeholder="Port"/>
-                <button type="submit" class="blue">Start</button>
-              </form>
-            </td>
-          </tr>
-          <tr class="pass">
-            <td>
-              <p>✔ Bypass</p>
-            </td>
-            <td class="col-project-port">
-              <p>4567</p>
-            </td>
-            <td>
-              <button class="black">Stop</button>
-            </td>
-          </tr>
-          <tr class="fail">
-            <td>
-              <p>☹ Mosaic</p>
-            </td>
-            <td class="col-project-port">
-              <p>666</p>
-            </td>
-            <td>
-              <button class="black">Stop</button>
-            </td>
-          </tr>
-        </tbody>
-      </table>
+      <ul>
+        <li>
+          <form id="create" action="/projects">
+            <input name="project[repo_url]" placeholder="Repository"/>
+            <button type="submit" class="blue">Create</button>
+          </form>
+        </li>
+        <li class="project">
+          <p class="chunky-text">G50</p>
+          <form class="start" action="/projects/project.repo_dir">
+            <input type="hidden" name="_method" value="PUT">
+            <button type="submit" class="blue">Start</button>
+            <input name="project[port]" placeholder="Port"/>
+          </form>
+        </li>
+        <li class="project pass">
+          <a class="chunky-text" href="#">✔ Bypass</a>
+          <form class="stop" action="/projects/project.repo_dir">
+            <input type="hidden" name="_method" value="PUT">
+            <button type="submit" class="black">Stop</button>
+          </form>
+          <p class="port chunky-text">4567</p>
+        </li>
+
+        <li class="project fail">
+          <a class="chunky-text" href="#">☹ Mosaic</a>
+          <form class="stop" action="/projects/project.repo_dir">
+            <input type="hidden" name="_method" value="PUT">
+            <button type="submit" class="black">Stop</button>
+          </form>
+          <p class="port chunky-text">666</p>
+        </li>
+      </ul>
     </section>
   </body>
 </html>
