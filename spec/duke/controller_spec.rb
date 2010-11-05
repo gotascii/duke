@@ -2,8 +2,8 @@ require 'spec_helper'
 
 describe Controller do
   before do
-    ::Duke::Config.stub(:log_dir).and_return("log_dir")
-    ::Duke::Config.stub(:pid_dir).and_return("pid_dir")
+    Duke::Config.stub(:log_dir).and_return("log_dir")
+    Duke::Config.stub(:pid_dir).and_return("pid_dir")
     @controller = Controller.new('repo_dir', 4567)
     @dir = Dir.pwd
   end
@@ -74,7 +74,7 @@ describe Controller do
 
   describe "#ping_command" do
     it "verifies that cijoe is running" do
-      ::Duke::Config.stub(:host).and_return("localhost")
+      Duke::Config.stub(:host).and_return("localhost")
       TCPSocket.should_receive(:new).with('localhost', 4567).and_return('sockette!')
       @controller.ping_command.call.should == 'sockette!'
     end

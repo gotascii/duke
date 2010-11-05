@@ -7,7 +7,7 @@ module Duke
     def new(dir=nil)
       dir ||= "."
       [:pid_dir, :log_dir].collect do |meth|
-        FileUtils.mkdir_p("#{dir}/#{::Duke::Config.send(meth)}")
+        FileUtils.mkdir_p("#{dir}/#{Config.send(meth)}")
       end
       directory 'templates', dir
     end
@@ -25,11 +25,11 @@ MSG
     end
 
     def start(repo_dir, port)
-      Project.new(repo_dir).start(port)
+      Project.find(repo_dir).start(port)
     end
 
     def stop(repo_dir)
-      Project.new(repo_dir).stop
+      Project.find(repo_dir).stop
     end
 
     def list
@@ -37,7 +37,7 @@ MSG
     end
 
     def build(repo_dir)
-      Project.new(repo_dir).build
+      Project.find(repo_dir).build
     end
 
     def cijoed(repo_dir, port, log_file, pid_file)

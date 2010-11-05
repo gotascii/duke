@@ -7,8 +7,8 @@ describe Cli do
 
   describe "#new" do
     before do
-      ::Duke::Config.stub(:log_dir).and_return("log_dir")
-      ::Duke::Config.stub(:pid_dir).and_return("pid_dir")
+      Duke::Config.stub(:log_dir).and_return("log_dir")
+      Duke::Config.stub(:pid_dir).and_return("pid_dir")
       FileUtils.stub(:mkdir_p)
       FileUtils.stub(:mkdir_p)
       @cli.stub(:directory)
@@ -65,13 +65,13 @@ describe Cli do
 
     it "instantiates the Project with repo_dir" do
       @project.stub(:start)
-      Project.should_receive(:new).with('repo_dir').and_return(@project)
+      Project.should_receive(:find).with('repo_dir').and_return(@project)
       @cli.start('repo_dir', 4567)
     end
 
     it "starts the Project on the specified port" do
       @project.should_receive(:start).with(4567)
-      Project.stub(:new).and_return(@project)
+      Project.stub(:find).and_return(@project)
       @cli.start('repo_dir', 4567)
     end
   end
@@ -83,13 +83,13 @@ describe Cli do
 
     it "instantiates the Project with repo_dir" do
       @project.stub(:stop)
-      Project.should_receive(:new).with('repo_dir').and_return(@project)
+      Project.should_receive(:find).with('repo_dir').and_return(@project)
       @cli.stop('repo_dir')
     end
 
     it "stops the Project in repo_dir" do
       @project.should_receive(:stop)
-      Project.stub(:new).and_return(@project)
+      Project.stub(:find).and_return(@project)
       @cli.stop('repo_dir')
     end
   end
@@ -117,13 +117,13 @@ describe Cli do
 
     it "instantiates the Project with repo_dir" do
       @project.stub(:build)
-      Project.should_receive(:new).with('repo_dir').and_return(@project)
+      Project.should_receive(:find).with('repo_dir').and_return(@project)
       @cli.build('repo_dir')
     end
 
     it "builds the Project in repo_dir" do
       @project.should_receive(:build)
-      Project.stub(:new).and_return(@project)
+      Project.stub(:find).and_return(@project)
       @cli.build('repo_dir')
     end
   end

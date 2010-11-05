@@ -6,7 +6,7 @@ begin
   Jeweler::Tasks.new do |gem|
     gem.name = "duke"
     gem.summary = %Q{Manage your CIJoes.}
-    gem.description = %Q{Allows you to start, stop, ping, and list all of your CIJoes.}
+    gem.description = %Q{Allows you to easily manage multiple CIJoes.}
     gem.email = "gotascii@gmail.com"
     gem.homepage = "http://github.com/gotascii/duke"
     gem.authors = ["Justin Marney"]

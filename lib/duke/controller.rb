@@ -6,7 +6,7 @@ module Duke
     attr_accessor :port
 
     def self.pid_files
-      Dir["#{::Duke::Config.pid_dir}/*.pid"]
+      Dir["#{Config.pid_dir}/*.pid"]
     end
 
     def self.port(repo_dir)
@@ -29,15 +29,15 @@ module Duke
     end
 
     def pid_file
-      "#{dir}/#{::Duke::Config.pid_dir}/#{identifier}.pid"
+      "#{dir}/#{Config.pid_dir}/#{identifier}.pid"
     end
 
     def log_file
-      "#{dir}/#{::Duke::Config.log_dir}/#{identifier}.log"
+      "#{dir}/#{Config.log_dir}/#{identifier}.log"
     end
 
     def ping_command
-      lambda { TCPSocket.new(::Duke::Config.host, port) }
+      lambda { TCPSocket.new(Config.host, port) }
     end
 
     def controller

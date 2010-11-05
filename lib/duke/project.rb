@@ -7,17 +7,21 @@ module Duke
 
     def self.all
       Dir['*'].collect do |repo_dir|
-        p = new(repo_dir)
-        p if p.repo_dir?
+        find(repo_dir)
       end.compact
     end
 
     def self.create(repo_url)
       p = new(repo_url)
       p.clone
-      p.set_runner ::Duke::Config.runner
-      p.set_campfire ::Duke::Config.campfire
+      p.set_runner Config.runner
+      p.set_campfire Config.campfire
       p
+    end
+
+    def self.find(repo_id)
+      p = new(repo_id)
+      p if p.repo_dir?
     end
 
     def initialize(repo_id)
@@ -75,7 +79,7 @@ module Duke
     end
 
     def build
-      uri = URI.parse("http://#{::Duke::Config.host}:#{port}")
+      uri = URI.parse("http://#{Config.host}:#{port}")
       Net::HTTP.post_form(uri, {})
     end
   end

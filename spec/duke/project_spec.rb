@@ -41,13 +41,13 @@ describe Project do
     end
 
     it "sets the Project instance runner command from config" do
-      ::Duke::Config.stub(:runner).and_return('runner')
+      Duke::Config.stub(:runner).and_return('runner')
       @project.should_receive(:set_runner).with('runner')
       Project.create('repo_url')
     end
 
     it "sets the Project instance campfire from config" do
-      ::Duke::Config.stub(:campfire).and_return('campfire')
+      Duke::Config.stub(:campfire).and_return('campfire')
       @project.should_receive(:set_campfire).with('campfire')
       Project.create('repo_url')
     end
@@ -191,11 +191,21 @@ describe Project do
 
   describe "#build" do
     it "sends a POST to cijoe in order to start a build" do
-      ::Duke::Config.stub(:host).and_return('localhost')
+      Duke::Config.stub(:host).and_return('localhost')
       URI.stub(:parse).with("http://localhost:4567").and_return('uri')
       Net::HTTP.should_receive(:post_form).with('uri', {})
       @project.stub(:port).and_return(4567)
       @project.build
+    end
+  end
+
+  describe "#find" do
+    context "searching for a project that exists" do
+      it "instantiates a project for the given repo_dir" do
+        project = double("project", :repo_dir? => true)
+        Project.should_receive(:new).with('repo_dir').and_return(project)
+        Project.find('repo_dir').should == project
+      end
     end
   end
 end

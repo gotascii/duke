@@ -14,7 +14,6 @@
       <h2>The CIJoe Manager</h2>
     </hgroup>
     <section>
-      <!-- ><h1>Projects</h1> -->
       <table>
         <thead class="hidden">
           <tr>
@@ -23,14 +22,20 @@
           </tr>
         </thead>
         <tbody>
-          <tr class="normal">
-            <td class="col-project-name">
-              <p>G50</p>
-            </td>
-            <td>
-              <button class="blue">Start</button>
-            </td>
-          </tr>
+          <% @projects.each do |project| %>
+            <tr class="normal">
+              <td class="col-project-name">
+                <p><%= project.name %></p>
+              </td>
+              <td>
+                <% if project.running? %>
+                  <button class="black">Stop</button>
+                <% else %>
+                  <button class="blue">Start</button>
+                <% end %>
+              </td>
+            </tr>
+          <% end %>
           <tr class="pass">
             <td>
               <p>✔ Bypass</p>

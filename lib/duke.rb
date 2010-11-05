@@ -2,6 +2,7 @@ $LOAD_PATH << File.dirname(__FILE__)
 
 require 'forwardable'
 require 'erb'
+require 'net/http'
 require 'daemon_controller'
 require 'fileutils'
 require 'thor'
