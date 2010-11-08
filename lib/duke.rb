@@ -18,8 +18,8 @@ require 'duke/app'
 
 module Duke
   CONFIG_DEFAULT = {
-    :host => 'localhost',
-    :runner => 'rake cruise',
+    :host => "localhost",
+    :runner => "rake",
     :pid_dir => "tmp/pids",
     :log_dir => "log",
     :campfire => {}

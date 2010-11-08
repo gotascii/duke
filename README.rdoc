@@ -1,6 +1,46 @@
 = duke
 
-Duke, the Real American Hero, led GIJoes into battle. duke.rb leads your CIJoes into battle.
+Duke, the Real American Hero, led GIJoes into battle. Duke.rb leads your CIJoes into battle. In other words, Duke helps you manage multiple CIJoe instances. It comes with a command-line interface and a web interface.
+
+== Basic Usage
+
+Install the duke gem
+  gem install duke
+
+Create a new duke installation
+  duke new some/directory
+
+Inside the duke directory use the command-line interface to add a new repository
+  duke add git@github.com:gotascii/duke.git
+
+Duke will clone the repo and configure it with some defaults
+
+== Configuration
+
+Defaults
+  host: localhost
+  runner: rake
+  pid_dir: tmp/pids
+  log_dir: log
+
+  host
+  Given a cijoe running on port 4567 and configured host of 'localhost' the cijoe url will be http://localhost:4567/
+
+  runner
+  When duke checks out a new repo it will configure it to build using this command.
+
+  pid_dir
+  The relative directory duke will use to store cijoe daemon pid files.
+
+  log_dir
+  The relative directory duke will use to store cijoe log files.
+
+Custom Configuration
+A config.yml in the root of the duke installation directory will override the defaults.
+
+Per-Project Runner
+The duke command-line utility allows you to set the runner for a particular project.
+  duke runner repo_dir "rake spec"
 
 == Note on Patches/Pull Requests
  
