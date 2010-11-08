@@ -16,7 +16,7 @@ new [DIR]             install duke into DIR or current directory
 add REPO_URL          add REPO_URL to current duke directory
 start REPO_DIR PORT   start cijoe for REPO_DIR on PORT
 stop REPO_DIR         stop cijoe for REPO_DIR
-runner REPO_DIR, CMD  use CMD to run build for REPO_DIR
+runner REPO_DIR CMD   use CMD to run build for REPO_DIR
 build REPO_DIR        tell cijoe to build REPO_DIR
 list                  list cijoe server statues
   EOT
