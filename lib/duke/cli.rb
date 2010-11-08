@@ -41,7 +41,7 @@ MSG
     end
 
     def cijoed(repo_dir, port, log_file, pid_file)
-      exec("nohup cijoe -p #{port} #{repo_dir} 1>#{log_file} 2>&1 & echo $! > #{pid_file}")
+      exec("nohup rvm use 1.9.2@g50 cijoep -p #{port} #{repo_dir} 1>#{log_file} 2>&1 & echo $! > #{pid_file}")
     end
 
     def runner(repo_dir, cmd)

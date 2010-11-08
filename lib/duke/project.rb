@@ -3,7 +3,7 @@ module Duke
     include Thor::Actions
     extend Forwardable
     def_delegators :controller, :stop, :pid, :running?, :port
-    def_delegators :cijoe, :building?
+    def_delegators :cijoe, :building?, :build
     attr_reader :repo_dir, :repo_url
     attr_writer :controller
 
@@ -64,19 +64,20 @@ module Duke
       run "git clone #{repo_url}"
     end
 
-    def add_config_to_repo(key, value)
+    def set_config(key, value)
       inside(repo_dir) do
-        run "git config --add \"#{key}\" \"#{value}\""
+        run "git config --unset-all \"#{key}\""
+        run "git config \"#{key}\" \"#{value}\""
       end
     end
 
     def set_runner(runner)
-      add_config_to_repo("cijoe.runner", runner)
+      set_config("cijoe.runner", runner)
     end
 
     def set_campfire(campfire)
       campfire.each do |k, v|
-        add_config_to_repo("campfire.#{k}", v)
+        set_config("campfire.#{k}", v)
       end
     end
 
@@ -100,10 +101,12 @@ module Duke
       puts fields.join(", ")
     end
 
-    def build
-      uri = URI.parse(url)
-      Net::HTTP.post_form(uri, {})
-    end
+    # def build
+    #   puts url.inspect
+    #   uri = URI.parse(url)
+    #   puts uri.inspect
+    #   Net::HTTP.post_form(uri, {})
+    # end
 
     def built?
       !cijoe.last_build.nil?
