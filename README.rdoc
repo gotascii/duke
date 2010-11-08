@@ -66,6 +66,10 @@ Duke provides a way to add, start, and stop your cijoes. It also provides a nice
 
 http://img.skitch.com/20101108-nj852sa18856hiykq5e9kas9m1.jpg
 
+The duke installation directory contains a config.ru and the easiest way to get rolling is by using passenger standalone. Just start up passenger inside the duke directory.
+
+  passenger start
+
 == Note on Patches/Pull Requests
  
 * Fork the project.
