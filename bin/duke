@@ -1,6 +1,6 @@
 #!/usr/bin/env ruby
 
-require '../lib/duke'
+require 'duke'
 
 ARGV << '--help' if ARGV.empty?
 
