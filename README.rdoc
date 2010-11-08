@@ -1,6 +1,6 @@
 = duke
 
-Duke, the Real American Hero, led GIJoes into battle. Duke.rb leads your CIJoes into battle. In other words, Duke helps you manage multiple CIJoe instances. It comes with a command-line interface and a web interface.
+Duke helps you manage multiple CIJoe instances. It comes with a command-line interface and a web interface.
 
 == Basic Usage
 
@@ -20,21 +20,45 @@ Duke will clone the repo and configure it with some defaults
 === Default Configuration
 
   host: localhost
-Given a cijoe running on port 4567 and configured host of 'localhost' the cijoe url will be http://localhost:4567/
+Given a cijoe running on port 4567 and configured host of 'localhost' the cijoe url will be localhost:4567
   runner: rake
 When duke checks out a new repo it will configure it to build using this command.
   pid_dir: tmp/pids
 The relative directory duke will use to store cijoe daemon pid files.
   log_dir: log
 The relative directory duke will use to store cijoe log files.
+  campfire: {}
+Options in the campfire hash are used to configure a new repo.
 
 === Custom Configuration
 
 A config.yml in the root of the duke installation directory will override the defaults.
 
 === Per-Project Runner
+
 The duke command-line utility allows you to set the runner for a particular project.
   duke runner repo_dir "rake spec"
+
+== Command-Line Usage
+
+  duke COMMAND [ARGS]
+
+=== Commands
+
+  new [DIR]
+Installs duke into DIR. Creates basic directory structure required for duke to do its thing.
+  add REPO_URL
+Clones the repo at REPO_URL into the duke directory and configures it to run cijoe.
+  start REPO_DIR PORT
+Starts a cijoe server set to build the repo in REPO_DIR on port PORT.
+  stop REPO_DIR
+Stops the cijoe server running for REPO_DIR.
+  runner REPO_DIR CMD
+Configures REPO_DIR to use CMD for cijoe builds.
+  build REPO_DIR
+Tell cijoe to build the project in REPO_DIR
+  list
+Lists all of the repo_dirs and their cijoe server and build statuses.
 
 == Note on Patches/Pull Requests
  
