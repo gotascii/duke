@@ -90,7 +90,7 @@ module Duke
     end
 
     def build
-      uri = URI.parse("http://#{Config.host}:#{port}")
+      uri = URI.parse(url)
       Net::HTTP.post_form(uri, {})
     end
 
@@ -100,6 +100,10 @@ module Duke
 
     def passing?
       !cijoe.last_build.failed?
+    end
+
+    def url
+      "http://#{Config.host}:#{port}"
     end
   end
 end

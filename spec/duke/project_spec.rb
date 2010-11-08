@@ -245,4 +245,12 @@ describe Project do
       end
     end
   end
+  
+  describe "#url" do
+    it "contains the configured host along with the cijoe port" do
+      @project.stub(:port).and_return(4567)
+      Duke::Config.stub(:host).and_return('localhost')
+      @project.url.should == 'http://localhost:4567'
+    end
+  end
 end

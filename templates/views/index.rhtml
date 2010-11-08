@@ -24,7 +24,7 @@
         <% @projects.each do |project| %>
           <li class="project<%= status_style(project) %>">
             <% if project.running? %>
-              <a class="chunky-text" href="#"><%= project.repo_dir %></a>
+              <a class="chunky-text" href="<%= project.url %>"><%= project.repo_dir %></a>
               <form class="stop" action="/projects/<%= project.repo_dir %>">
                 <input type="hidden" name="_method" value="PUT">
                 <button type="submit" class="black">Stop</button>
