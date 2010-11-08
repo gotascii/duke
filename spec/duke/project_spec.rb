@@ -152,25 +152,40 @@ describe Project do
     end
   end
 
-  # describe "#print_status_msg" do
-  #   context "when cijoe is not running" do
-  #     it "puts the repo_dir and indicates cijoe is stopped" do
-  #       @project.stub(:running?).and_return(false)
-  #       @project.should_receive(:puts).with("repo_dir, stopped")
-  #       @project.print_status_msg
-  #     end
-  #   end
-  # 
-  #   context "when cijoe is running" do
-  #     it "puts the repo_dir, and indicates the port and pid of cijoe" do
-  #       @project.stub(:running?).and_return(true)
-  #       @project.stub(:port).and_return(4567)
-  #       @project.stub(:pid).and_return(666)
-  #       @project.should_receive(:puts).with("repo_dir, port 4567, pid 666, building or broken")
-  #       @project.print_status_msg
-  #     end
-  #   end
-  # end
+  describe "#print_status_msg" do
+    context "when cijoe is not running" do
+      it "puts the repo_dir and indicates cijoe is stopped" do
+        @project.stub(:running?).and_return(false)
+        @project.should_receive(:puts).with("repo_dir, stopped")
+        @project.print_status_msg
+      end
+    end
+  
+    context "when cijoe is running" do
+      before do
+        @project.stub(:running?).and_return(true)
+        @project.stub(:port).and_return(4567)
+        @project.stub(:pid).and_return(666)
+      end
+
+      context "and has yet to be built" do
+        it "puts the repo_dir, port and pid of cijoe" do
+          @project.stub(:building?).and_return(false)
+          @project.stub(:built?).and_return(false)
+          @project.should_receive(:puts).with("repo_dir, port 4567, pid 666")
+          @project.print_status_msg
+        end
+      end
+
+      context "and is building" do
+        it "puts the repo_dir, port, pid and a building status" do
+          @project.stub(:building?).and_return(true)
+          @project.should_receive(:puts).with("repo_dir, port 4567, pid 666, building...")
+          @project.print_status_msg
+        end
+      end
+    end
+  end
   
   describe "#build" do
     it "sends a POST to cijoe in order to start a build" do

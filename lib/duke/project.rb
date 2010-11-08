@@ -81,12 +81,19 @@ module Duke
     end
 
     def print_status_msg
-      msg = if running?
-        "port #{port}, pid #{pid}, #{pass? ? 'passing' : 'building or broken' }"
+      fields = []
+      fields << repo_dir
+      if running?
+        fields += ["port #{port}", "pid #{pid}"]
+        if building?
+          fields << 'building...'
+        elsif built?
+          fields << passing? ? "passing" : 'failing'
+        end
       else
-        "stopped"
+        fields << "stopped"
       end
-      puts "#{repo_dir}, #{msg}"
+      puts fields.join(", ")
     end
 
     def build
