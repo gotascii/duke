@@ -25,8 +25,8 @@
           <li class="project<%= status_style(project) %>">
             <% if project.running? %>
               <a class="chunky-text" href="<%= project.url %>"><%= project.repo_dir %></a>
-              <form class="stop" action="/projects/<%= project.repo_dir %>">
-                <input type="hidden" name="_method" value="PUT">
+              <form class="stop" method="post" action="/projects/<%= project.repo_dir %>">
+                <input type="hidden" name="_method" value="put">
                 <button type="submit" class="black">Stop</button>
               </form>
               <p class="port chunky-text"><%= project.port %></p>
