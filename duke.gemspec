@@ -5,7 +5,7 @@
 
 Gem::Specification.new do |s|
   s.name = %q{duke}
-  s.version = "0.0.1"
+  s.version = "0.1.0"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Justin Marney"]
@@ -66,17 +66,20 @@ Gem::Specification.new do |s|
       s.add_runtime_dependency(%q<thor>, [">= 0"])
       s.add_runtime_dependency(%q<cijoe>, [">= 0"])
       s.add_runtime_dependency(%q<daemon_controller>, [">= 0"])
+      s.add_runtime_dependency(%q<sinatra>, [">= 0"])
       s.add_development_dependency(%q<rspec>, [">= 2.0.1"])
     else
       s.add_dependency(%q<thor>, [">= 0"])
       s.add_dependency(%q<cijoe>, [">= 0"])
       s.add_dependency(%q<daemon_controller>, [">= 0"])
+      s.add_dependency(%q<sinatra>, [">= 0"])
       s.add_dependency(%q<rspec>, [">= 2.0.1"])
     end
   else
     s.add_dependency(%q<thor>, [">= 0"])
     s.add_dependency(%q<cijoe>, [">= 0"])
     s.add_dependency(%q<daemon_controller>, [">= 0"])
+    s.add_dependency(%q<sinatra>, [">= 0"])
     s.add_dependency(%q<rspec>, [">= 2.0.1"])
   end
 end

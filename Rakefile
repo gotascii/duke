@@ -13,6 +13,7 @@ begin
     gem.add_runtime_dependency "thor"
     gem.add_runtime_dependency "cijoe"
     gem.add_runtime_dependency "daemon_controller"
+    gem.add_runtime_dependency "sinatra"
     gem.add_development_dependency "rspec", ">= 2.0.1"
     # gem is a Gem::Specification... see http://www.rubygems.org/read/chapter/20 for additional settings
   end
