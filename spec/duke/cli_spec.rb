@@ -127,4 +127,22 @@ describe Cli do
       @cli.build('repo_dir')
     end
   end
+
+  describe "#runner(repo_dir, cmd)" do
+    before do
+      @project = double("project")
+    end
+
+    it "finds the Project with repo_dir" do
+      @project.stub(:set_runner)
+      Project.should_receive(:find).with(:repo_dir => 'repo_dir').and_return(@project)
+      @cli.runner('repo_dir', 'cmd')
+    end
+
+    it "sets the Project runner to cmd" do
+      @project.should_receive(:set_runner).with('cmd')
+      Project.stub(:find).and_return(@project)
+      @cli.runner('repo_dir', 'cmd')
+    end
+  end
 end

@@ -88,7 +88,11 @@ module Duke
         if building?
           fields << 'building...'
         elsif built?
-          fields << passing? ? "passing" : 'failing'
+          fields << if passing?
+            "passing"
+          else
+            "failing"
+          end
         end
       else
         fields << "stopped"
