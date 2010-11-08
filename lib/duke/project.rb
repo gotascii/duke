@@ -3,7 +3,7 @@ module Duke
     include Thor::Actions
     extend Forwardable
     def_delegators :controller, :stop, :pid, :running?, :port
-    def_delegators :cijoe, :building?, :build
+    def_delegators :cijoe, :building?
     attr_reader :repo_dir, :repo_url
     attr_writer :controller
 
@@ -101,12 +101,10 @@ module Duke
       puts fields.join(", ")
     end
 
-    # def build
-    #   puts url.inspect
-    #   uri = URI.parse(url)
-    #   puts uri.inspect
-    #   Net::HTTP.post_form(uri, {})
-    # end
+    def build
+      uri = URI.parse("#{url}/")
+      Net::HTTP.post_form(uri, {})
+    end
 
     def built?
       !cijoe.last_build.nil?

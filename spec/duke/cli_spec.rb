@@ -104,9 +104,16 @@ describe Cli do
   end
 
   describe "#cijoed(repo_dir, port, log_file, pid_file)" do
-    it "runs cijoe daemon in repo_dir on port using log_file and pid_file" do
-      @cli.should_receive(:exec).with("nohup cijoe -p 4567 repo_name 1>log_file 2>&1 & echo $! > pid_file")
-      @cli.cijoed('repo_name', 4567, 'log_file', 'pid_file')
+    it "wraps the command in rvm exec" do
+      @cli.should_receive(:rvm_exec).with("repo_dir", "nohup cijoe -p 4567 repo_dir 1>log_file 2>&1 & echo $! > pid_file")
+      @cli.stub(:exec)
+      @cli.cijoed('repo_dir', 4567, 'log_file', 'pid_file')
+    end
+
+    it "execs the wrapped command" do
+      @cli.stub(:rvm_exec).and_return("rvm_exec")
+      @cli.should_receive(:exec).with("rvm_exec")
+      @cli.cijoed('repo_dir', 4567, 'log_file', 'pid_file')
     end
   end
 

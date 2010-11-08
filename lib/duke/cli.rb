@@ -41,12 +41,18 @@ MSG
     end
 
     def cijoed(repo_dir, port, log_file, pid_file)
-      raise 'fuck'
-      exec("nohup rvm use 1.9.2@g50 cijoep -p #{port} #{repo_dir} 1>#{log_file} 2>&1 & echo $! > #{pid_file}")
+      cmd = "nohup cijoe -p #{port} #{repo_dir} 1>#{log_file} 2>&1 & echo $! > #{pid_file}"
+      exec(rvm_exec(repo_dir, cmd))
     end
 
     def runner(repo_dir, cmd)
       Project.find(:repo_dir => repo_dir).set_runner(cmd)
+    end
+
+    def rvm_exec(repo_dir, cmd)
+      path = "#{repo_dir}/.rvmrc"
+      cmd = "#{File.read(path)} exec '#{cmd}'" if File.exist?(path)
+      cmd
     end
   end
 end

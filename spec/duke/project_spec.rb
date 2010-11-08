@@ -129,25 +129,26 @@ describe Project do
     end
   end
   
-  describe "#add_config_to_repo(key, value)" do
+  describe "#set_config(key, value)" do
     it "adds a key value pair to the git config" do
       @project.stub(:inside).with('repo_dir').and_yield
-      @project.should_receive(:run).with("git config --add \"key\" \"value\"")
-      @project.add_config_to_repo('key', 'value')
+      @project.should_receive(:run).with("git config --unset-all \"key\"")
+      @project.should_receive(:run).with("git config \"key\" \"value\"")
+      @project.set_config('key', 'value')
     end
   end
   
   describe "#set_runner" do
     it "sets the runner git config entry" do
-      @project.should_receive(:add_config_to_repo).with("cijoe.runner", 'runner')
+      @project.should_receive(:set_config).with("cijoe.runner", 'runner')
       @project.set_runner('runner')
     end
   end
   
   describe "#set_campfire" do
     it "sets campfire values in the git config" do
-      @project.should_receive(:add_config_to_repo).with("campfire.camp", 'fire')
-      @project.should_receive(:add_config_to_repo).with("campfire.fire", 'camp')
+      @project.should_receive(:set_config).with("campfire.camp", 'fire')
+      @project.should_receive(:set_config).with("campfire.fire", 'camp')
       @project.set_campfire({:camp => 'fire', :fire => 'camp'})
     end
   end
@@ -190,7 +191,7 @@ describe Project do
   describe "#build" do
     it "sends a POST to cijoe in order to start a build" do
       Duke::Config.stub(:host).and_return('localhost')
-      URI.stub(:parse).with("http://localhost:4567").and_return('uri')
+      URI.stub(:parse).with("http://localhost:4567/").and_return('uri')
       Net::HTTP.should_receive(:post_form).with('uri', {})
       @project.stub(:port).and_return(4567)
       @project.build
