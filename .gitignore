@@ -4,3 +4,5 @@ coverage
 log
 tmp
 g50
+.bundle
+.rvmrc
