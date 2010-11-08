@@ -20,7 +20,7 @@ Duke will clone the repo and configure it with some defaults
 === Default Configuration
 
   host: localhost
-Given a cijoe running on port 4567 and configured host of 'localhost' the cijoe url will be localhost:4567
+Given a cijoe running on port 4567 and configured host of 'localhost' the cijoe url will be   [http://localhost:4567/](http://localhost:4567/)
   runner: rake
 When duke checks out a new repo it will configure it to build using this command.
   pid_dir: tmp/pids
@@ -59,6 +59,12 @@ Configures REPO_DIR to use CMD for cijoe builds.
 Tell cijoe to build the project in REPO_DIR
   list
 Lists all of the repo_dirs and their cijoe server and build statuses.
+
+== Website Interface
+
+Duke provides a way to add, start, and stop your cijoes. It also provides a nice list of all your cijoes and their current build status. It looks like the following screenshot.
+
+![Duke](http://img.skitch.com/20101108-nj852sa18856hiykq5e9kas9m1.jpg)
 
 == Note on Patches/Pull Requests
  
