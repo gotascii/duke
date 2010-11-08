@@ -15,42 +15,51 @@ describe Controller do
     end
   end
 
-  describe ".port(repo_dir)" do
+  describe "#initialize(repo_dir, port)" do
+    context "with a repo_dir and a port" do
+      it "has a dir that matches cwd" do
+        @controller.dir.should == @dir
+      end
+
+      it "has a repo_dir" do
+        @controller.repo_dir.should == 'repo_dir'
+      end
+
+      it "has a timeout of 7 seconds" do
+        @controller.timeout.should == 7
+      end
+    end
+  end
+
+  describe "#port" do
+    context "when a port is provided during initialization" do
+      it "is the provided port" do
+        @controller.port.should == 4567
+      end
+    end
+
+    context "when a port is not provided during initialization" do
+      it "is the current_port" do
+        @controller = Controller.new('repo_dir')
+        @controller.stub(:current_port).and_return(1234)
+        @controller.port.should == 1234
+      end
+    end
+  end
+
+  describe "#current_port" do
     context "when a cijoe is running for repo_dir" do
       it "determines what port cijoe is running on" do
-        Controller.stub(:pid_files).and_return(['repo_dir.4567.pid'])
-        Controller.port('repo_dir').should == 4567
+        Controller.stub(:pid_files).and_return(['repo_dir.1234.pid'])
+        @controller.current_port.should == 1234
       end
     end
 
     context "when a cijoe is not running for repo_dir" do
       it "returns nil" do
         Controller.stub(:pid_files).and_return(['weird_dir.1234.pid'])
-        Controller.port('repo_dir').should == nil
+        @controller.current_port.should == nil
       end
-    end
-  end
-
-  describe "#initialize(repo_dir, port)" do
-    it "has a dir that matches cwd" do
-      @controller.dir.should == @dir
-    end
-
-    it "has a repo_dir" do
-      @controller.repo_dir.should == 'repo_dir'
-    end
-
-    it "has a port reader" do
-      @controller.port.should == 4567
-    end
-
-    it "has a port writer" do
-      @controller.port = 1234
-      @controller.port.should == 1234
-    end
-
-    it "has a timeout of 7 seconds" do
-      @controller.timeout.should == 7
     end
   end
 
@@ -81,7 +90,7 @@ describe Controller do
   end
 
   describe "#controller" do
-    it "instantiates a DaemonController instance" do
+    it "instantiates a DaemonController" do
       @controller.stub(:identifier).and_return("identifier")
       @controller.stub(:ping_command).and_return("ping_command")
       @controller.stub(:pid_file).and_return("pid_file")

@@ -2,9 +2,10 @@ module Duke
   class Project < Thor::Group
     include Thor::Actions
     extend Forwardable
-    def_delegators :controller, :stop, :pid, :running?
+    def_delegators :controller, :stop, :pid, :running?, :port
     def_delegators :cijoe, :building?
     attr_reader :repo_dir, :repo_url
+    attr_writer :controller
 
     def self.all
       Dir['*'].collect do |repo_dir|
@@ -43,16 +44,12 @@ module Duke
     end
 
     def controller
-      @controller ||= Controller.new(repo_dir, port)
+      @controller ||= Controller.new(repo_dir)
     end
 
     def start(port)
-      controller.port = port
+      self.controller = Controller.new(repo_dir, port)
       controller.start
-    end
-
-    def port
-      Controller.port(repo_dir)
     end
 
     def git_dir

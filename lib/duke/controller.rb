@@ -2,26 +2,29 @@ module Duke
   class Controller
     extend Forwardable
     def_delegators :controller, :start, :stop, :running?, :pid
-    attr_reader :dir, :repo_dir, :timeout
-    attr_accessor :port
+    attr_reader :dir, :repo_dir, :timeout, :port
 
     def self.pid_files
       Dir["#{Config.pid_dir}/*.pid"]
     end
 
-    def self.port(repo_dir)
-      repo_dir_regex = /#{repo_dir}\.(\d+)/
-      pid_files.each do |pid_file|
-        return $1.to_i if pid_file =~ repo_dir_regex
-      end
-      nil
-    end
-
-    def initialize(repo_dir, port)
+    def initialize(repo_dir, port=nil)
       @dir = Dir.pwd
       @repo_dir = repo_dir
       @port = port
       @timeout = 7
+    end
+
+    def port
+      @port ||= current_port
+    end
+
+    def current_port
+      repo_dir_regex = /#{repo_dir}\.(\d+)/
+      Controller.pid_files.each do |pid_file|
+        return $1.to_i if pid_file =~ repo_dir_regex
+      end
+      nil
     end
 
     def identifier

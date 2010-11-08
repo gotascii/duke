@@ -31,7 +31,7 @@ describe Project do
       Project.stub(:new).with(:repo_url => 'repo_url').and_return(@project)
     end
   
-    it "instantiates a new Project instance with repo_url" do
+    it "instantiates a Project with repo_url" do
       Project.create(:repo_url => 'repo_url').should == @project
     end
   
@@ -82,27 +82,27 @@ describe Project do
   end
 
   describe "#controller" do
-    it "instantiates a Controller instance with repo_dir and port" do
-      @project.stub(:port).and_return(4567)
-      Controller.stub(:new).with('repo_dir', 4567).and_return('controller')
+    it "instantiates a Controller with repo_dir" do
+      Controller.stub(:new).with('repo_dir').and_return('controller')
       @project.controller.should == 'controller'
     end
   end
-  
+
   describe "#start(port)" do
     before do
-      @controller = double("controller", :port= => nil, :start => nil)
-      @project = Project.new(:repo_dir => 'repo_dir')
-      @project.stub(:controller).and_return(@controller)
+      @controller = double("controller")
     end
   
-    it "sets the controller port" do
-      @controller.should_receive(:port=).with(4567)
+    it "instantiates a Controller with repo_dir and port" do
+      @controller.stub(:start)
+      Controller.should_receive(:new).with('repo_dir', 4567).and_return(@controller)
       @project.start(4567)
+      @project.controller.should == @controller
     end
-  
-    it "starts the controller" do
+
+    it "starts the new controller" do
       @controller.should_receive(:start)
+      Controller.stub(:new).and_return(@controller)
       @project.start(4567)
     end
   end
@@ -151,13 +151,6 @@ describe Project do
       @project.set_campfire({:camp => 'fire', :fire => 'camp'})
     end
   end
-  
-  describe "#port" do
-    it "determines what port cijoe is running on" do
-      Controller.should_receive(:port).with('repo_dir').and_return(4567)
-      @project.port.should == 4567
-    end
-  end
 
   # describe "#print_status_msg" do
   #   context "when cijoe is not running" do
@@ -191,7 +184,7 @@ describe Project do
   
   describe "#find" do
     context "searching for a project that exists" do
-      it "instantiates a project for the given repo_dir" do
+      it "instantiates a Project for the given repo_dir" do
         project = double("project", :repo_dir? => true)
         Project.should_receive(:new).with(:repo_dir => 'repo_dir').and_return(project)
         Project.find(:repo_dir => 'repo_dir').should == project
@@ -201,7 +194,7 @@ describe Project do
 
   describe "#cijoe" do
     context "when project has a repo_dir?" do
-      it "instantiates a new cijoe with repo_dir" do
+      it "instantiates a CIJoe with repo_dir" do
         @project.stub(:repo_dir?).and_return(true)
         cijoe = double("cijoe", :restore => nil)
         CIJoe.should_receive(:new).with('repo_dir').and_return(cijoe)

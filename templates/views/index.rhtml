@@ -16,24 +16,24 @@
     <section>
       <ul>
         <li>
-          <form id="create" action="/projects">
+          <form id="create" action="/projects" method="post">
             <input name="project[repo_url]" placeholder="Repository"/>
             <button type="submit" class="blue">Create</button>
           </form>
         </li>
         <% @projects.each do |project| %>
-          <li class="project<%= status(project) %>">
+          <li class="project<%= status_style(project) %>">
             <% if project.running? %>
-              <a class="chunky-text" href="#"><%= project.name %></a>
+              <a class="chunky-text" href="#"><%= project.repo_dir %></a>
               <form class="stop" action="/projects/<%= project.repo_dir %>">
                 <input type="hidden" name="_method" value="PUT">
                 <button type="submit" class="black">Stop</button>
               </form>
               <p class="port chunky-text"><%= project.port %></p>
             <% else %>
-              <p class="chunky-text"><%= project.name %></p>
-              <form class="start" action="/projects/<%= project.repo_dir %>">
-                <input type="hidden" name="_method" value="PUT">
+              <p class="chunky-text"><%= project.repo_dir %></p>
+              <form class="start" method="post" action="/projects/<%= project.repo_dir %>">
+                <input type="hidden" name="_method" value="put">
                 <button type="submit" class="blue">Start</button>
                 <input name="project[port]" placeholder="Port"/>
               </form>
