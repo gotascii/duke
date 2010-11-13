@@ -2,13 +2,25 @@
 
 Duke helps you manage multiple CIJoe instances. It comes with a command-line interface and a web interface.
 
-== Basic Usage
+== Installation & Setup using RVM
 
-Install the duke gem
+Here is a way you could setup duke on your CI server using RVM.
+
+Use my version of cijoe because it works in 1.9 and works with duke.
+  git clone git@github.com:gotascii/cijoe.git
+  gem build cijoe.gemspec
+
+Install cijoe into the global gemset so it is available in all project gemsets.
+  rvm gemset use global
+  gem install cijoe-0.5.0.gem
+
+Create a duke gemset and install duke
+  rvm gemset create duke
+  rvm gemset use duke
   gem install duke
 
 Create a new duke installation
-  duke new some/directory
+  duke new .
 
 Inside the duke directory use the command-line interface to add a new repository
   duke add git@github.com:gotascii/duke.git
