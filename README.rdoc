@@ -14,18 +14,18 @@ Install cijoe into the global gemset so it is available in all project gemsets.
   rvm gemset use global
   gem install cijoe-0.5.0.gem
 
-Create a duke gemset and install duke
+Create a duke gemset and install duke.
   rvm gemset create duke
   rvm gemset use duke
   gem install duke
 
-Create a new duke installation
+Create a new duke installation.
   duke new .
 
-Inside the duke directory use the command-line interface to add a new repository
+Inside the duke directory use the command-line interface to add a new repository.
   duke add git@github.com:gotascii/duke.git
 
-Duke will clone the repo and configure it with some defaults
+Duke will clone the repo and configure it with some defaults.
 
 == Configuration
 
