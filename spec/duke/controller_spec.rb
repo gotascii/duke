@@ -89,6 +89,24 @@ describe Controller do
     end
   end
 
+  describe "#running" do
+    context "when port is nil" do
+      it "is false" do
+        @controller.stub(:port).and_return(nil)
+        @controller.running?.should be_false
+      end
+    end
+
+    context "when port is not nil" do
+      it "is delegates to controller" do
+        controller = double("controller")
+        controller.should_receive(:running?).and_return('running?')
+        @controller.stub(:controller).and_return(controller)
+        @controller.running?.should == "running?"
+      end
+    end
+  end
+
   describe "#controller" do
     it "instantiates a DaemonController" do
       @controller.stub(:identifier).and_return("identifier")

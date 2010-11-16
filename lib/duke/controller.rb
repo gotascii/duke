@@ -1,7 +1,7 @@
 module Duke
   class Controller
     extend Forwardable
-    def_delegators :controller, :start, :stop, :running?, :pid
+    def_delegators :controller, :start, :stop, :pid
     attr_reader :dir, :repo_dir, :timeout, :port
 
     def self.pid_files
@@ -25,6 +25,10 @@ module Duke
         return $1.to_i if pid_file =~ repo_dir_regex
       end
       nil
+    end
+
+    def running?
+      port.nil? ? false : controller.running?
     end
 
     def identifier

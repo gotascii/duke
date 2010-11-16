@@ -28,4 +28,7 @@ module Duke
   config_yml = File.exist?(config_path) ? YAML.load_file(config_path) : {}
   config = CONFIG_DEFAULT.merge(config_yml)
   Config = OpenStruct.new(config)
+  url = "http://#{Config.host}"
+  url += ":#{Config.port}" if Config.port
+  Config.host_url = url
 end

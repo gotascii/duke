@@ -32,7 +32,9 @@ Duke will clone the repo and configure it with some defaults.
 === Default Configuration
 
   host: localhost
-Used to generate links to cijoes in the web interface.
+Used to generate links to cijoes and the main duke url.
+  port: nil
+Used to generate the main duke url.
   runner: rake
 When duke checks out a new repo it will configure it to build using this command.
   pid_dir: tmp/pids

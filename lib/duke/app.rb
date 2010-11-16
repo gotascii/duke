@@ -23,15 +23,15 @@ module Duke
       @project = Project.find(:repo_dir => params[:id])
       if @project.running?
         @project.stop
-      else
+      elsif params[:project][:port]
         @project.start(params[:project][:port])
       end
-      redirect '/'
+      redirect Config.host_url
     end
 
     post '/projects' do
       Project.create(params[:project])
-      redirect '/'
+      redirect Config.host_url
     end
   end
 end
