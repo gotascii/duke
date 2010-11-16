@@ -32,7 +32,7 @@ Duke will clone the repo and configure it with some defaults.
 === Default Configuration
 
   host: localhost
-Given a cijoe running on port 4567 and configured host of 'localhost' the cijoe url will be   [http://localhost:4567/](http://localhost:4567/)
+Used to generate links to cijoes in the web interface.
   runner: rake
 When duke checks out a new repo it will configure it to build using this command.
   pid_dir: tmp/pids
