@@ -5,11 +5,11 @@
 
 Gem::Specification.new do |s|
   s.name = %q{duke}
-  s.version = "0.1.2"
+  s.version = "0.1.3"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Justin Marney"]
-  s.date = %q{2010-11-10}
+  s.date = %q{2010-11-16}
   s.default_executable = %q{duke}
   s.description = %q{Allows you to easily manage multiple CIJoes.}
   s.email = %q{gotascii@gmail.com}
@@ -39,6 +39,7 @@ Gem::Specification.new do |s|
      "spec/duke/project_spec.rb",
      "spec/spec_helper.rb",
      "templates/config.ru",
+     "templates/config/setup_load_paths.rb",
      "templates/public/help.html",
      "templates/public/stylesheets/base.css",
      "templates/public/stylesheets/button.css",

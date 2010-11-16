@@ -24,7 +24,7 @@ module Duke
     :log_dir => "log",
     :campfire => {}
   }
-  config_path = File.join('config.yml')
+  config_path = File.join('config', 'duke.yml')
   config_yml = File.exist?(config_path) ? YAML.load_file(config_path) : {}
   config = CONFIG_DEFAULT.merge(config_yml)
   Config = OpenStruct.new(config)

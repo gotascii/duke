@@ -44,7 +44,7 @@ Options in the campfire hash are used to configure a new repo.
 
 === Custom Configuration
 
-A config.yml in the root of the duke installation directory will override the defaults.
+A duke.yml in the config directory will override the defaults.
 
 === Per-Project Runner
 
