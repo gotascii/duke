@@ -1,18 +1,17 @@
 /* Based on http://ubuwaits.github.com/css3-buttons */
 
 button.blue {
+  background: #004F59;
   background: -webkit-gradient(linear, 0 0, 0 100%,
               color-stop(0, #59D9EA),
               color-stop(0.5, #00899A),
               color-stop(0.5, #007988),
               color-stop(1, #004F59));
-
   background: -moz-linear-gradient(0% 100% 90deg,
               #004F59 0%,
               #007988 50%,
               #00899A 50%,
               #59D9EA 100%);
-
   border: 0;
 
   border-radius:          4px;
@@ -33,33 +32,59 @@ button.blue {
 }
 
 button.blue:hover {
+  background: #148D9C;
   background: -webkit-gradient(linear, 0 0, 0 100%,
               color-stop(0, #77F7FF),
               color-stop(0.5, #1EA7B8),
               color-stop(0.5, #148D9C),
               color-stop(1, #14636D));
+  background: -moz-linear-gradient(0% 100% 90deg,
+              #14636D 0%,
+              #148D9C 50%,
+              #1EA7B8 50%,
+              #77F7FF 100%);
 }
 
 button.blue:active {
+  background: #77F7FF;
   background: -webkit-gradient(linear, 0 0, 0 100%,
               color-stop(0, #45C5D6),
               color-stop(0.5, #007586),
               color-stop(0.5, #006574),
               color-stop(1, #003B45));
+  background: -moz-linear-gradient(0% 100% 90deg,
+              #003B45 0%,
+              #006574 50%,
+              #007586 50%,
+              #45C5D6 100%);
+
+  box-shadow:         inset 0px 0px 0px 1px rgba(36, 51, 53, 0.4);
+  -moz-box-shadow:    inset 0px 0px 0px 1px rgba(36, 51, 53, 0.4);
   -webkit-box-shadow: inset 0px 0px 0px 1px rgba(36, 51, 53, 0.4);
 }
 
 button.black {
+  background: #111111;
   background: -webkit-gradient(linear, 0 0, 0 100%,
               color-stop(0, #434343),
               color-stop(0.5, #2F2F2F),
               color-stop(0.5, #252525),
               color-stop(1, #111111));
+  background: -moz-linear-gradient(0% 100% 90deg,
+              #111111 0%,
+              #252525 50%,
+              #2F2F2F 50%,
+              #434343 100%);
   border: 0;
-  border-radius: 4px;
-  -moz-border-radius: 4px;
-  -webkit-border-radius: 4px;
+
+  border-radius:          4px;
+  -moz-border-radius:     4px;
+  -webkit-border-radius:  4px;
+
+  box-shadow:         inset 0px 0px 0px 1px rgba(0, 0, 0, 0.5), 0 1px 3px #333;
+  -moz-box-shadow:    inset 0px 0px 0px 1px rgba(0, 0, 0, 0.5), 0 1px 3px #333;
   -webkit-box-shadow: inset 0px 0px 0px 1px rgba(0, 0, 0, 0.5), 0 1px 3px #333;
+
   color: #fff;
   font-size: 197%;
   text-align: center;
@@ -69,18 +94,34 @@ button.black {
 }
 
 button.black:hover {
+  background: #393939;
   background: -webkit-gradient(linear, 0 0, 0 100%,
               color-stop(0, #575757),
               color-stop(0.5, #434343),
               color-stop(0.5, #393939),
               color-stop(1, #252525));
+  background: -moz-linear-gradient(0% 100% 90deg,
+              #252525 0%,
+              #393939 50%,
+              #434343 50%,
+              #575757 100%);
 }
 
 button.black:active {
+  background: #575757;
   background: -webkit-gradient(linear, 0 0, 0 100%,
               color-stop(0, #2F2F2F),
               color-stop(0.5, #252525),
               color-stop(0.5, #1B1B1B),
               color-stop(1, #111111));
+
+  background: -moz-linear-gradient(0% 100% 90deg,
+              #111111 0%,
+              #1B1B1B 50%,
+              #252525 50%,
+              #2F2F2F 100%);
+
+  box-shadow:         inset 0px 0px 0px 1px rgba(0, 0, 0, 0.5);
+  -moz-box-shadow:    inset 0px 0px 0px 1px rgba(0, 0, 0, 0.5);
   -webkit-box-shadow: inset 0px 0px 0px 1px rgba(0, 0, 0, 0.5);
 }
