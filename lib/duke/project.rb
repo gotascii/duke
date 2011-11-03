@@ -117,5 +117,14 @@ module Duke
     def url
       "http://#{Config.host}:#{port}"
     end
+
+    def deploy(stages, )
+      inside(repo_dir) do
+        Config.stages.each do |stage|
+          run "cap #{stage} deploy > #{controller.log_file}"
+          run "cap #{stage} deploy:migrations > #{controller.log_file}"
+        end
+      end
+    end
   end
 end
